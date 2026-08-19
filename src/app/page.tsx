@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Stats } from "@/components/Stats";
+import { HowToBuy } from "@/components/HowToBuy";
 import { Trajectory } from "@/components/Trajectory";
 import { ValueProps } from "@/components/ValueProps";
 import { Products } from "@/components/Products";
@@ -16,9 +17,10 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Stats />
+        <HowToBuy />
+        <Products />
         <Trajectory />
         <ValueProps />
-        <Products />
         <WhyUs />
         <TrustedBrands />
         <Contact />

@@ -6,6 +6,15 @@ import { Footer } from "@/components/Footer";
 import { PROVINCIAS } from "@/lib/provincias";
 import { whatsappUrl } from "@/lib/whatsapp";
 
+const CATEGORIAS = [
+  "Sweaters",
+  "Camperas",
+  "Pantalones cargo",
+  "Jeans",
+  "Remeras y chombas",
+  "Ropa térmica",
+];
+
 export function generateStaticParams() {
   return PROVINCIAS.map((provincia) => ({ provincia: provincia.slug }));
 }
@@ -49,6 +58,13 @@ export default async function ProvinciaPage({ params }: Props) {
       <main className="flex-1">
         <section className="bg-[var(--color-ink)] pb-20 pt-32 text-white sm:pb-28 sm:pt-40">
           <div className="mx-auto max-w-4xl px-6 lg:px-8">
+            <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-white/50">
+              <Link href="/" className="transition-colors hover:text-white">
+                Inicio
+              </Link>
+              <span aria-hidden="true">/</span>
+              <span className="text-white/70">{provincia.nombre}</span>
+            </nav>
             <p className="text-sm font-semibold uppercase tracking-widest text-white/60">
               Región {provincia.region}
             </p>
@@ -69,6 +85,24 @@ export default async function ProvinciaPage({ params }: Props) {
             >
               Pedir catálogo mayorista en {provincia.nombre}
             </a>
+          </div>
+        </section>
+
+        <section className="bg-[var(--color-gray-elegance)] py-16">
+          <div className="mx-auto max-w-4xl px-6 lg:px-8">
+            <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight text-[var(--color-ink)]">
+              Qué enviamos a {provincia.nombre}
+            </h2>
+            <ul className="mt-6 flex flex-wrap gap-3">
+              {CATEGORIAS.map((categoria) => (
+                <li
+                  key={categoria}
+                  className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink)]"
+                >
+                  {categoria}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

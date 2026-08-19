@@ -13,7 +13,7 @@ const SLIDES = [
   {
     image: "/images/taller-mesas.jpg",
     eyebrow: "Producción propia",
-    title: "Calidad y versatilidad en cada prenda",
+    title: "Eficiencia en cada orden",
   },
   {
     image: "/images/deposito-rollos.png",

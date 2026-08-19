@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Anybody, Inter } from "next/font/google";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import "./globals.css";
 
 const displayFont = Anybody({
@@ -86,6 +87,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        <WhatsAppFloat />
       </body>
     </html>
   );
