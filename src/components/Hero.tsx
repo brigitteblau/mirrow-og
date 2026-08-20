@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { whatsappUrl } from "@/lib/whatsapp";
 
 const SLIDES = [
   {
@@ -28,16 +27,17 @@ export function Hero() {
 
   const next = useCallback(() => {
     setActive((current) => (current + 1) % SLIDES.length);
-    setCycle((c) => c + 1);
+    setCycle((current) => current + 1);
   }, []);
 
-  const prev = useCallback(() => {
-    setActive((current) => (current - 1 + SLIDES.length) % SLIDES.length);
-    setCycle((c) => c + 1);
-  }, []);
+  const goToSlide = (index: number) => {
+    setActive(index);
+    setCycle((current) => current + 1);
+  };
 
   useEffect(() => {
     const timer = setInterval(next, 6000);
+
     return () => clearInterval(timer);
   }, [next]);
 
@@ -46,6 +46,7 @@ export function Hero() {
       id="top"
       className="relative isolate flex h-dvh min-h-[640px] items-end overflow-hidden bg-[var(--color-ink)] text-white"
     >
+      {/* Slides */}
       {SLIDES.map((slide, index) => (
         <div
           key={slide.image}
@@ -61,68 +62,53 @@ export function Hero() {
             fill
             priority={index === 0}
             sizes="100vw"
-            className={`object-cover ${index === active ? "animate-kenburns" : ""}`}
+            className={`object-cover ${
+              index === active ? "animate-kenburns" : ""
+            }`}
           />
         </div>
       ))}
+
+      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30" />
 
-      <button
-        type="button"
-        onClick={prev}
-        aria-label="Anterior"
-        className="absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/20 p-3 text-white backdrop-blur transition-colors hover:bg-[var(--color-red)] sm:flex"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        onClick={next}
-        aria-label="Siguiente"
-        className="absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/20 p-3 text-white backdrop-blur transition-colors hover:bg-[var(--color-red)] sm:flex"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-
-      <div className="relative mx-auto w-full max-w-7xl px-6 pb-14 sm:pb-16 lg:px-8">
-        <p key={`eyebrow-${active}`} className="animate-fade-up text-xs font-semibold uppercase tracking-[0.2em] text-white/70 sm:text-sm">
+      {/* Content */}
+      <div className="relative mx-auto w-full max-w-7xl px-6 pb-20 sm:pb-24 lg:px-8">
+        <p
+          key={`eyebrow-${active}`}
+          className="animate-fade-up text-xs font-semibold uppercase tracking-[0.2em] text-white/70 sm:text-sm"
+        >
           {SLIDES[active].eyebrow}
         </p>
+
         <h1
           key={`title-${active}`}
           className="animate-fade-up font-display mt-3 max-w-2xl text-3xl font-extrabold uppercase leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl [animation-delay:80ms]"
         >
           {SLIDES[active].title}
         </h1>
+      </div>
 
-     {/* <div className="mt-7 flex flex-wrap items-center gap-4 sm:mt-8">
-          <a
-            href={whatsappUrl("Hola! Quiero información para ser cliente mayorista de Mirrow.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-[var(--color-red)] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-red-dark)] sm:px-7 sm:py-3.5 sm:text-sm"
+      {/* Slider indicators */}
+      <div className="absolute bottom-7 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 sm:bottom-9">
+        {SLIDES.map((slide, index) => (
+          <button
+            key={slide.image}
+            type="button"
+            onClick={() => goToSlide(index)}
+            aria-label={`Ir a la diapositiva ${index + 1}`}
+            aria-current={index === active ? "true" : undefined}
+            className="group relative h-6 w-12 sm:w-16"
           >
-            Solicitar catálogo por WhatsApp
-          </a>
+            <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-white/25 transition-colors duration-300 group-hover:bg-white/45" />
 
-          <div className="flex gap-2">
-            {SLIDES.map((slide, index) => (
-              <button
-                key={slide.image}
-                type="button"
-                onClick={() => setActive(index)}
-                aria-label={`Ir a la diapositiva ${index + 1}`}
-                className={`h-1.5 w-8 rounded-full transition-colors sm:w-10 ${
-                  index === active ? "bg-[var(--color-red)]" : "bg-white/30"
-                }`}
-              />
-            ))}
-          </div>
-        </div> */}
+            <span
+              className={`absolute left-0 top-1/2 h-[2px] -translate-y-1/2 bg-white transition-all duration-500 ${
+                index === active ? "w-full" : "w-0"
+              }`}
+            />
+          </button>
+        ))}
       </div>
     </section>
   );
