@@ -99,7 +99,7 @@ export function Hero() {
           {SLIDES[active].title}
         </h1>
 
-        <div className="mt-7 flex flex-wrap items-center gap-4 sm:mt-8">
+     {/* <div className="mt-7 flex flex-wrap items-center gap-4 sm:mt-8">
           <a
             href={whatsappUrl("Hola! Quiero información para ser cliente mayorista de Mirrow.")}
             target="_blank"
@@ -122,7 +122,7 @@ export function Hero() {
               />
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

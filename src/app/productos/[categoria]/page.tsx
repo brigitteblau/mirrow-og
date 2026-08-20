@@ -3,22 +3,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { CATEGORIAS } from "@/lib/categorias";
+import { ModeloGallery } from "@/components/ModeloGallery";
+import { getCatalogo, getCategoria, contarFotos } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
 
-const PLACEHOLDER_COUNT = 9;
-
 export function generateStaticParams() {
-  return CATEGORIAS.map((categoria) => ({ categoria: categoria.slug }));
+  return getCatalogo().map((categoria) => ({ categoria: categoria.slug }));
 }
 
 type Props = {
   params: Promise<{ categoria: string }>;
 };
-
-function getCategoria(slug: string) {
-  return CATEGORIAS.find((c) => c.slug === slug);
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { categoria: slug } = await params;
@@ -38,14 +33,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function PlaceholderPhoto({ index }: { index: number }) {
+function EmptyState() {
   return (
     <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[var(--color-gray-elegance)]">
       <span className="font-display text-lg font-extrabold uppercase tracking-tight text-[var(--color-ink)]/25">
         MIRROW
       </span>
       <span className="absolute bottom-3 right-3 rounded-full border border-black/10 bg-white px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-black/40">
-        Foto {index + 1} próximamente
+        Fotos próximamente
       </span>
     </div>
   );
@@ -56,7 +51,9 @@ export default async function CategoriaPage({ params }: Props) {
   const categoria = getCategoria(slug);
   if (!categoria) notFound();
 
-  const otras = CATEGORIAS.filter((c) => c.slug !== categoria.slug);
+  const catalogo = getCatalogo();
+  const otras = catalogo.filter((c) => c.slug !== categoria.slug);
+  const totalFotos = contarFotos(categoria);
 
   return (
     <>
@@ -98,33 +95,51 @@ export default async function CategoriaPage({ params }: Props) {
 
         <section className="bg-white py-16 sm:py-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
-              {Array.from({ length: PLACEHOLDER_COUNT }).map((_, index) => (
-                <PlaceholderPhoto key={index} index={index} />
+            {totalFotos === 0 && (
+              <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <EmptyState key={index} />
+                ))}
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3">
+              {categoria.fotos.map((foto) => (
+                <ModeloGallery key={foto.src} categoriaNombre={categoria.nombre} fotos={[foto]} />
+              ))}
+              {categoria.modelos.map((modelo) => (
+                <ModeloGallery
+                  key={modelo.slug}
+                  nombre={modelo.nombre}
+                  categoriaNombre={categoria.nombre}
+                  fotos={modelo.fotos}
+                />
               ))}
             </div>
           </div>
         </section>
 
-        <section className="bg-[var(--color-gray-elegance)] py-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight text-[var(--color-ink)]">
-              Otras categorías
-            </h2>
-            <ul className="mt-6 flex flex-wrap gap-3">
-              {otras.map((c) => (
-                <li key={c.slug}>
-                  <Link
-                    href={`/productos/${c.slug}`}
-                    className="rounded-full border border-black/15 bg-white px-4 py-2 text-sm text-[var(--color-ink)]/70 transition-colors hover:border-[var(--color-red)] hover:text-[var(--color-red)]"
-                  >
-                    {c.nombre}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        {otras.length > 0 && (
+          <section className="bg-[var(--color-gray-elegance)] py-16">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight text-[var(--color-ink)]">
+                Otras categorías
+              </h2>
+              <ul className="mt-6 flex flex-wrap gap-3">
+                {otras.map((c) => (
+                  <li key={c.slug}>
+                    <Link
+                      href={`/productos/${c.slug}`}
+                      className="rounded-full border border-black/15 bg-white px-4 py-2 text-sm text-[var(--color-ink)]/70 transition-colors hover:border-[var(--color-red)] hover:text-[var(--color-red)]"
+                    >
+                      {c.nombre}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>

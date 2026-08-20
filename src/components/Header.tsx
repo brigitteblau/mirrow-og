@@ -6,10 +6,10 @@ import { Logo } from "./Logo";
 import { whatsappUrl } from "@/lib/whatsapp";
 
 const NAV_LINKS = [
-  { href: "#historia", label: "Empresa" },
-  { href: "#productos", label: "Catálogo" },
-  { href: "#por-que-nosotros", label: "Mayoristas" },
-  { href: "#opiniones", label: "Opiniones" },
+  { href: "/#historia", label: "Empresa" },
+  { href: "/#productos", label: "Catálogo" },
+  { href: "/#por-que-nosotros", label: "Mayoristas" },
+  { href: "/#opiniones", label: "Opiniones" },
 ];
 
 export function Header() {
@@ -31,19 +31,19 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <Link href="#top" className="shrink-0">
+        <Link href="/" className="shrink-0">
           <Logo variant="light" />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-sm font-medium text-white/70 transition-colors hover:text-[var(--color-red)]"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 

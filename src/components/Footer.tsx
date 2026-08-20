@@ -1,19 +1,21 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { PROVINCIAS } from "@/lib/provincias";
-import { CATEGORIAS } from "@/lib/categorias";
+import { getCatalogo } from "@/lib/catalogo";
 
 const EMPRESA = [
-  { href: "#historia", label: "Nuestra historia" },
-  { href: "#por-que-nosotros", label: "Venta mayorista" },
-  { href: "#opiniones", label: "Opiniones" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/#historia", label: "Nuestra historia" },
+  { href: "/#por-que-nosotros", label: "Venta mayorista" },
+  { href: "/#opiniones", label: "Opiniones" },
+  { href: "/#contacto", label: "Contacto" },
 ];
 
 const linkClass =
   "inline-block transition-all duration-300 ease-out hover:translate-x-1 hover:text-white";
 
 export function Footer() {
+  const catalogo = getCatalogo();
+
   return (
     <footer className="bg-[var(--color-ink)] py-16 text-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -31,7 +33,7 @@ export function Footer() {
               Catálogo
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-white/70">
-              {CATEGORIAS.map((categoria) => (
+              {catalogo.map((categoria) => (
                 <li key={categoria.slug}>
                   <Link href={`/productos/${categoria.slug}`} className={linkClass}>
                     {categoria.nombre}
@@ -48,9 +50,9 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm text-white/70">
               {EMPRESA.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className={linkClass}>
+                  <Link href={item.href} className={linkClass}>
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
