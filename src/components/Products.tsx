@@ -1,8 +1,35 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "./Reveal";
-import { ModeloGallery } from "./ModeloGallery";
 import { whatsappUrl } from "@/lib/whatsapp";
-import { getCatalogo, contarFotos } from "@/lib/catalogo";
+import { getCatalogo, getPortada } from "@/lib/catalogo";
+
+function CategoriaArt({ foto }: { foto?: { src: string; alt: string } }) {
+  if (foto) {
+    return (
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-black/10 transition-transform duration-300 group-hover:scale-[1.02]">
+        <Image
+          src={foto.src}
+          alt={foto.alt}
+          fill
+          sizes="(min-width: 640px) 33vw, 50vw"
+          className="object-cover"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[var(--color-gray-elegance)] transition-transform duration-300 group-hover:scale-[1.02]">
+      <span className="font-display text-lg font-extrabold uppercase tracking-tight text-[var(--color-ink)]/25">
+        MIRROW
+      </span>
+      <span className="absolute bottom-3 right-3 rounded-full border border-black/10 bg-white px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-black/40">
+        Fotos próximamente
+      </span>
+    </div>
+  );
+}
 
 export function Products() {
   const catalogo = getCatalogo();
@@ -29,48 +56,28 @@ export function Products() {
           </a>
         </Reveal>
 
-        <div className="mt-16 space-y-16">
-          {catalogo.map((categoria) => {
-            const items = [
-              ...categoria.fotos.map((foto) => ({ key: foto.src, nombre: undefined, fotos: [foto] })),
-              ...categoria.modelos.map((modelo) => ({ key: modelo.slug, nombre: modelo.nombre, fotos: modelo.fotos })),
-            ];
-            const totalFotos = contarFotos(categoria);
-
-            return (
-              <Reveal key={categoria.slug}>
-                <div className="flex flex-wrap items-end justify-between gap-4">
-                  <h3 className="font-display text-xl font-extrabold uppercase tracking-tight text-[var(--color-ink)]">
-                    {categoria.nombre}
-                  </h3>
-                  <Link
-                    href={`/productos/${categoria.slug}`}
-                    className="flex items-center gap-1.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:text-[var(--color-red-dark)]"
+        <div className="mt-14 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          {catalogo.map((categoria, index) => (
+            <Reveal key={categoria.slug} delay={index * 80}>
+              <Link href={`/productos/${categoria.slug}`} className="group block">
+                <CategoriaArt foto={getPortada(categoria)} />
+                <h3 className="mt-3 flex items-center gap-1.5 text-base font-bold text-[var(--color-ink)]">
+                  {categoria.nombre}
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="mt-0.5 transition-transform duration-300 group-hover:translate-x-1"
                   >
-                    Ver catálogo completo de {categoria.nombre}
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
-                </div>
-
-                {totalFotos === 0 ? (
-                  <p className="mt-6 text-sm text-black/50">Fotos próximamente.</p>
-                ) : (
-                  <div className="mt-6 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
-                    {items.map((item) => (
-                      <ModeloGallery
-                        key={item.key}
-                        nombre={item.nombre}
-                        categoriaNombre={categoria.nombre}
-                        fotos={item.fotos}
-                      />
-                    ))}
-                  </div>
-                )}
-              </Reveal>
-            );
-          })}
+                    <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </h3>
+              </Link>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
