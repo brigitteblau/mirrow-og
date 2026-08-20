@@ -6,7 +6,7 @@ import { Trajectory } from "@/components/Trajectory";
 import { ValueProps } from "@/components/ValueProps";
 import { Products } from "@/components/Products";
 import { WhyUs } from "@/components/WhyUs";
-import { TrustedBrands } from "@/components/TrustedBrands";
+import { Reviews } from "@/components/Reviews";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -22,7 +22,7 @@ export default function Home() {
         <Trajectory />
         <ValueProps />
         <WhyUs />
-        <TrustedBrands />
+        <Reviews />
         <Contact />
       </main>
       <Footer />

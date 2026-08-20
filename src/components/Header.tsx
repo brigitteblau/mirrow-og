@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { href: "#historia", label: "Empresa" },
   { href: "#productos", label: "Catálogo" },
   { href: "#por-que-nosotros", label: "Mayoristas" },
-  { href: "#marcas", label: "Confían en nosotros" },
+  { href: "#opiniones", label: "Opiniones" },
 ];
 
 export function Header() {

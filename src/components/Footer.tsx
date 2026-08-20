@@ -1,22 +1,17 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { PROVINCIAS } from "@/lib/provincias";
-
-const CATALOGO = [
-  "Remeras y chombas",
-  "Sweaters",
-  "Camperas",
-  "Jeans",
-  "Pantalones cargo",
-  "Ropa térmica",
-];
+import { CATEGORIAS } from "@/lib/categorias";
 
 const EMPRESA = [
   { href: "#historia", label: "Nuestra historia" },
   { href: "#por-que-nosotros", label: "Venta mayorista" },
-  { href: "#marcas", label: "Confían en nosotros" },
+  { href: "#opiniones", label: "Opiniones" },
   { href: "#contacto", label: "Contacto" },
 ];
+
+const linkClass =
+  "inline-block transition-all duration-300 ease-out hover:translate-x-1 hover:text-white";
 
 export function Footer() {
   return (
@@ -36,8 +31,12 @@ export function Footer() {
               Catálogo
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-white/70">
-              {CATALOGO.map((item) => (
-                <li key={item}>{item}</li>
+              {CATEGORIAS.map((categoria) => (
+                <li key={categoria.slug}>
+                  <Link href={`/productos/${categoria.slug}`} className={linkClass}>
+                    {categoria.nombre}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
@@ -49,7 +48,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm text-white/70">
               {EMPRESA.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className="hover:text-white">
+                  <a href={item.href} className={linkClass}>
                     {item.label}
                   </a>
                 </li>
@@ -64,7 +63,7 @@ export function Footer() {
             <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-white/70">
               {PROVINCIAS.map((provincia) => (
                 <li key={provincia.slug}>
-                  <Link href={`/envios/${provincia.slug}`} className="hover:text-white">
+                  <Link href={`/envios/${provincia.slug}`} className={linkClass}>
                     {provincia.nombre}
                   </Link>
                 </li>

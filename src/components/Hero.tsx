@@ -24,13 +24,16 @@ const SLIDES = [
 
 export function Hero() {
   const [active, setActive] = useState(0);
+  const [cycle, setCycle] = useState(0);
 
   const next = useCallback(() => {
     setActive((current) => (current + 1) % SLIDES.length);
+    setCycle((c) => c + 1);
   }, []);
 
   const prev = useCallback(() => {
     setActive((current) => (current - 1 + SLIDES.length) % SLIDES.length);
+    setCycle((c) => c + 1);
   }, []);
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex h-[85vh] min-h-[520px] items-end overflow-hidden bg-[var(--color-ink)] text-white sm:h-[90vh]"
+      className="relative isolate flex h-dvh min-h-[640px] items-end overflow-hidden bg-[var(--color-ink)] text-white"
     >
       {SLIDES.map((slide, index) => (
         <div
@@ -52,12 +55,13 @@ export function Hero() {
           aria-hidden={index !== active}
         >
           <Image
+            key={index === active ? `${slide.image}-${cycle}` : slide.image}
             src={slide.image}
             alt={slide.title}
             fill
             priority={index === 0}
             sizes="100vw"
-            className="object-cover"
+            className={`object-cover ${index === active ? "animate-kenburns" : ""}`}
           />
         </div>
       ))}

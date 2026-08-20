@@ -1,18 +1,11 @@
+import Link from "next/link";
 import { Reveal } from "./Reveal";
 import { whatsappUrl } from "@/lib/whatsapp";
-
-const CATEGORIES = [
-  "Sweaters",
-  "Camperas",
-  "Pantalones cargo",
-  "Jeans",
-  "Remeras y chombas",
-  "Ropa térmica",
-];
+import { CATEGORIAS } from "@/lib/categorias";
 
 function PlaceholderArt() {
   return (
-    <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[var(--color-gray-elegance)]">
+    <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[var(--color-gray-elegance)] transition-transform duration-300 group-hover:scale-[1.02]">
       <span className="font-display text-lg font-extrabold uppercase tracking-tight text-[var(--color-ink)]/25">
         MIRROW
       </span>
@@ -47,10 +40,25 @@ export function Products() {
         </Reveal>
 
         <div className="mt-14 grid grid-cols-2 gap-5 sm:grid-cols-3">
-          {CATEGORIES.map((category, index) => (
-            <Reveal key={category} delay={index * 80}>
-              <PlaceholderArt />
-              <h3 className="mt-3 text-base font-bold text-[var(--color-ink)]">{category}</h3>
+          {CATEGORIAS.map((categoria, index) => (
+            <Reveal key={categoria.slug} delay={index * 80}>
+              <Link href={`/productos/${categoria.slug}`} className="group block">
+                <PlaceholderArt />
+                <h3 className="mt-3 flex items-center gap-1.5 text-base font-bold text-[var(--color-ink)]">
+                  {categoria.nombre}
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="mt-0.5 transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </h3>
+              </Link>
             </Reveal>
           ))}
         </div>
