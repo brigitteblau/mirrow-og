@@ -1,20 +1,20 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
 import { REVIEWS } from "@/lib/reviews";
 
 function Stars() {
   return (
     <div
-      className="flex items-center justify-center gap-0.5 text-[var(--color-red)]"
+      className="flex gap-0.5 text-[var(--color-red)]"
       aria-hidden="true"
     >
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
-          width="17"
-          height="17"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="currentColor"
         >
@@ -26,65 +26,44 @@ function Stars() {
 }
 
 export function Reviews() {
-  const [active, setActive] = useState(0);
-  const [direction, setDirection] = useState<1 | -1>(1);
-
-  const touchStart = useRef<number | null>(null);
-  const touchEnd = useRef<number | null>(null);
-
-  const next = useCallback(() => {
-    setDirection(1);
-    setActive((current) => (current + 1) % REVIEWS.length);
-  }, []);
-
-  const prev = useCallback(() => {
-    setDirection(-1);
-    setActive(
-      (current) => (current - 1 + REVIEWS.length) % REVIEWS.length
-    );
-  }, []);
-
-  const goTo = (index: number) => {
-    if (index === active) return;
-
-    setDirection(index > active ? 1 : -1);
-    setActive(index);
-  };
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(next, 6000);
-    return () => clearInterval(timer);
-  }, [next]);
+    const track = trackRef.current;
+    if (!track) return;
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStart.current = e.targetTouches[0].clientX;
-    touchEnd.current = null;
-  };
+    let animationFrame: number;
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEnd.current = e.targetTouches[0].clientX;
-  };
+    const speed = 0.35;
 
-  const handleTouchEnd = () => {
-    if (touchStart.current === null || touchEnd.current === null) return;
+    const animate = () => {
+      if (!paused) {
+        track.scrollLeft += speed;
 
-    const distance = touchStart.current - touchEnd.current;
+        const halfway = track.scrollWidth / 2;
 
-    if (distance > 50) {
-      next();
-    }
+        if (track.scrollLeft >= halfway) {
+          track.scrollLeft = 0;
+        }
+      }
 
-    if (distance < -50) {
-      prev();
-    }
-  };
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [paused]);
+
+  const repeatedReviews = [...REVIEWS, ...REVIEWS];
 
   return (
     <section
       id="opiniones"
       className="scroll-mt-24 overflow-hidden border-t border-black/10 bg-[var(--color-gray-elegance)] py-20 sm:py-28"
     >
-      <div className="mx-auto max-w-5xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-red)] sm:text-sm">
             Opiniones
@@ -98,127 +77,107 @@ export function Reviews() {
             Relaciones que se construyen pedido a pedido.
           </p>
         </Reveal>
+      </div>
+
+      <div className="relative mt-12 sm:mt-16">
+        {/* Fade lateral */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[var(--color-gray-elegance)] to-transparent sm:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[var(--color-gray-elegance)] to-transparent sm:w-24" />
 
         <div
-          className="relative mt-12 sm:mt-16"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
+          ref={trackRef}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          className="
+            flex
+            gap-4
+            overflow-x-auto
+            px-6
+            pb-4
+            [scrollbar-width:none]
+            [&::-webkit-scrollbar]:hidden
+            sm:gap-5
+            lg:px-8
+          "
         >
-          <div className="relative min-h-[360px] sm:min-h-[390px]">
-            {REVIEWS.map((review, index) => {
-              const isActive = index === active;
+          {repeatedReviews.map((review, index) => {
+            const variant = index % 5;
 
-              return (
-                <div
-                  key={review.name}
-                  aria-hidden={!isActive}
-                  className={`
-                    absolute inset-0
-                    flex items-center justify-center
-                    transition-all duration-700
-                    [transition-timing-function:cubic-bezier(0.22,1,0.36,1)]
-                    ${
-                      isActive
-                        ? "pointer-events-auto translate-x-0 scale-100 opacity-100"
-                        : direction === 1
-                          ? "pointer-events-none -translate-x-16 scale-[0.97] opacity-0"
-                          : "pointer-events-none translate-x-16 scale-[0.97] opacity-0"
-                    }
-                  `}
-                >
-                  <article className="relative w-full overflow-hidden rounded-[28px] border border-black/[0.08] bg-white px-7 py-9 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:px-12 sm:py-12 lg:px-16">
-                    {/* Decoración */}
-                    <div
-                      className="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-[var(--color-red)]/[0.045]"
-                      aria-hidden="true"
-                    />
+            const sizeClass =
+              variant === 0
+                ? "min-w-[300px] sm:min-w-[420px]"
+                : variant === 1 || variant === 4
+                  ? "min-w-[260px] sm:min-w-[320px]"
+                  : "min-w-[280px] sm:min-w-[350px]";
 
-                    <div
-                      className="pointer-events-none absolute -bottom-20 -left-14 h-48 w-48 rounded-full border border-black/[0.04]"
-                      aria-hidden="true"
-                    />
+            const paddingClass =
+              variant === 0
+                ? "p-7 sm:p-9"
+                : "p-6 sm:p-7";
 
-                    <div className="relative">
-                      <div className="flex items-center justify-between">
-                        <Stars />
+            return (
+              <article
+                key={`${review.name}-${index}`}
+                className={`
+                  ${sizeClass}
+                  ${paddingClass}
+                  flex
+                  flex-col
+                  justify-between
+                  rounded-[22px]
+                  border
+                  border-black/[0.08]
+                  bg-white
+                  transition-transform
+                  duration-300
+                  hover:-translate-y-1
+                `}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-4">
+                    <Stars />
 
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/30">
-                          Cliente Mirrow
-                        </span>
-                      </div>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/30">
+                      Cliente Mirrow
+                    </span>
+                  </div>
 
-                      <blockquote className="mt-8">
-                        <p className="font-display text-xl font-medium leading-[1.45] tracking-[-0.02em] text-[var(--color-ink)] sm:text-2xl lg:text-[28px]">
-                          “{review.quote}”
-                        </p>
-                      </blockquote>
-
-                      <div className="mt-9 flex items-center gap-4 border-t border-black/[0.07] pt-6">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-ink)] text-sm font-bold uppercase text-white">
-                          {review.name.charAt(0)}
-                        </div>
-
-                        <div>
-                          <p className="text-sm font-bold text-[var(--color-ink)]">
-                            {review.name}
-                          </p>
-
-                          <p className="mt-0.5 text-xs text-black/45">
-                            {review.business}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
+                  <blockquote className="mt-5">
+                    <p
+                      className={`font-display tracking-[-0.02em] text-[var(--color-ink)] ${
+                        variant === 0
+                          ? "text-xl leading-[1.45] sm:text-2xl"
+                          : "text-base leading-relaxed sm:text-lg"
+                      }`}
+                    >
+                      “{review.quote}”
+                    </p>
+                  </blockquote>
                 </div>
-              );
-            })}
-          </div>
 
-          {/* Controles */}
-          <div className="mt-8 flex items-center justify-between gap-6">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-semibold tabular-nums text-[var(--color-ink)]">
-                {String(active + 1).padStart(2, "0")}
-              </span>
+                <div className="mt-8 flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-ink)] text-xs font-bold uppercase text-white">
+                    {review.name.charAt(0)}
+                  </div>
 
-              <div className="h-px w-20 bg-black/10 sm:w-28">
-                <div
-                  className="h-full bg-[var(--color-red)] transition-all duration-500"
-                  style={{
-                    width: `${((active + 1) / REVIEWS.length) * 100}%`,
-                  }}
-                />
-              </div>
+                  <div>
+                    <p className="text-sm font-bold text-[var(--color-ink)]">
+                      {review.name}
+                    </p>
 
-              <span className="text-xs tabular-nums text-black/30">
-                {String(REVIEWS.length).padStart(2, "0")}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              {REVIEWS.map((review, index) => (
-                <button
-                  key={review.name}
-                  type="button"
-                  onClick={() => goTo(index)}
-                  aria-label={`Ir a la opinión ${index + 1}`}
-                  aria-current={index === active ? "true" : undefined}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${
-                    index === active
-                      ? "w-8 bg-[var(--color-red)]"
-                      : "w-1.5 bg-black/15 hover:bg-black/30"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <p className="mt-4 text-right text-[10px] uppercase tracking-[0.18em] text-black/25 sm:hidden">
-            Deslizá para ver más
-          </p>
+                    <p className="mt-0.5 text-xs text-black/45">
+                      {review.business}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
+
+        <p className="mt-4 text-center text-[10px] uppercase tracking-[0.18em] text-black/25 sm:hidden">
+          Deslizá para ver más
+        </p>
       </div>
     </section>
   );
