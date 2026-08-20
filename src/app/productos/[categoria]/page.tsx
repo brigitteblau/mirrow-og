@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Reveal } from "@/components/Reveal";
 import { ModeloGallery } from "@/components/ModeloGallery";
 import { getCatalogo, getCategoria, contarFotos } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
@@ -54,14 +55,19 @@ export default async function CategoriaPage({ params }: Props) {
   const catalogo = getCatalogo();
   const otras = catalogo.filter((c) => c.slug !== categoria.slug);
   const totalFotos = contarFotos(categoria);
+  const items = [
+    ...categoria.fotos.map((foto) => ({ key: foto.src, nombre: undefined as string | undefined, fotos: [foto] })),
+    ...categoria.modelos.map((modelo) => ({ key: modelo.slug, nombre: modelo.nombre, fotos: modelo.fotos })),
+  ];
 
   return (
     <>
       <Header />
       <main className="flex-1">
-        <section className="bg-[var(--color-ink)] pb-16 pt-32 text-white sm:pb-20 sm:pt-40">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-white/50">
+        <section className="bg-[var(--color-ink)] pb-6 pt-28 text-white sm:pt-36">
+          <div className="mx-auto max-w-4xl px-6 lg:px-8">
+            <h1 className="sr-only">{categoria.nombre} al por mayor</h1>
+            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-white/50">
               <Link href="/" className="transition-colors hover:text-white">
                 Inicio
               </Link>
@@ -72,29 +78,11 @@ export default async function CategoriaPage({ params }: Props) {
               <span aria-hidden="true">/</span>
               <span className="text-white/70">{categoria.nombre}</span>
             </nav>
-            <p className="text-sm font-semibold uppercase tracking-widest text-white/60">
-              Catálogo mayorista
-            </p>
-            <h1 className="font-display mt-3 text-3xl font-extrabold uppercase tracking-tight sm:text-4xl">
-              {categoria.nombre} al por mayor
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
-              Producción propia e importación de {categoria.nombre.toLowerCase()}, con
-              contenedores completos y curvas de talles para comercios de todo el país.
-            </p>
-            <a
-              href={whatsappUrl(`Hola! Quiero pedir catálogo mayorista de ${categoria.nombre} de Mirrow.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-full bg-[var(--color-red)] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"
-            >
-              Pedir catálogo de {categoria.nombre}
-            </a>
           </div>
         </section>
 
-        <section className="bg-white py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <section className="bg-white py-16 sm:py-24">
+          <div className="mx-auto max-w-5xl px-6 lg:px-8">
             {totalFotos === 0 && (
               <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
                 {Array.from({ length: 6 }).map((_, index) => (
@@ -103,20 +91,62 @@ export default async function CategoriaPage({ params }: Props) {
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3">
-              {categoria.fotos.map((foto) => (
-                <ModeloGallery key={foto.src} categoriaNombre={categoria.nombre} fotos={[foto]} />
-              ))}
-              {categoria.modelos.map((modelo) => (
-                <ModeloGallery
-                  key={modelo.slug}
-                  nombre={modelo.nombre}
-                  categoriaNombre={categoria.nombre}
-                  fotos={modelo.fotos}
-                />
+            <div className="space-y-20 sm:space-y-28">
+              {items.map((item, index) => (
+                <Reveal
+                  key={item.key}
+                  className={`grid grid-cols-1 items-center gap-8 sm:grid-cols-2 sm:gap-14 ${
+                    index % 2 === 1 ? "sm:[&>*:first-child]:order-2" : ""
+                  }`}
+                >
+                  <ModeloGallery nombre={item.nombre} fotos={item.fotos} />
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-red)]">
+                      {categoria.nombre}
+                    </p>
+                    {item.nombre && (
+                      <h2 className="font-display mt-2 text-2xl font-extrabold uppercase tracking-tight text-[var(--color-ink)] sm:text-3xl">
+                        {item.nombre}
+                      </h2>
+                    )}
+                    {item.fotos.length > 1 && (
+                      <p className="mt-4 text-sm text-black/50">Disponible en {item.fotos.length} colores.</p>
+                    )}
+                    <p className="mt-4 text-sm text-black/60">
+                      También lo producimos con tu marca.{" "}
+                      <a
+                        href={whatsappUrl(
+                          `Hola! Quiero pedir ${item.nombre ? `el modelo ${item.nombre} de ` : ""}${categoria.nombre} de Mirrow con mi marca.`
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-[var(--color-red)] underline underline-offset-2 transition-colors hover:text-[var(--color-red-dark)]"
+                      >
+                        Consultanos por WhatsApp
+                      </a>
+                    </p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
+        </section>
+
+        <section className="bg-[var(--color-red)] py-14 text-center sm:py-16">
+          <Reveal className="mx-auto max-w-2xl px-6 lg:px-8">
+            <p className="text-xl font-medium leading-relaxed text-white sm:text-2xl">
+              ¿Te interesa nuestra línea de {categoria.nombre.toLowerCase()}? Escribinos y te
+              contamos telas, talles y precios mayoristas.
+            </p>
+            <a
+              href={whatsappUrl(`Hola! Me interesa la línea de ${categoria.nombre} de Mirrow, ¿me pasás más información?`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
+            >
+              Escribinos por WhatsApp
+            </a>
+          </Reveal>
         </section>
 
         {otras.length > 0 && (
