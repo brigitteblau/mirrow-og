@@ -5,8 +5,10 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import { ModeloGallery } from "@/components/ModeloGallery";
-import { getCatalogo, getCategoria, contarFotos } from "@/lib/catalogo";
+import { getCatalogo, getCategoria, getPortada, contarFotos } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
+
+const BASE_URL = "https://mayorista.mirrow.com.ar";
 
 export function generateStaticParams() {
   return getCatalogo().map((categoria) => ({ categoria: categoria.slug }));
@@ -21,16 +23,41 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const categoria = getCategoria(slug);
   if (!categoria) return {};
 
-  const title = `${categoria.nombre} al por mayor | Mirrow`;
-  const description = `Catálogo mayorista de ${categoria.nombre.toLowerCase()} de Mirrow. Producción propia e importación, con envíos a comercios de todo el país.`;
+  const nombreLower = categoria.nombre.toLowerCase();
+  const title = `${categoria.nombre} por Mayor | Mirrow Indumentaria Mayorista`;
+  const description = `Comprá ${nombreLower} por mayor en Mirrow: producción propia e importación, variedad de talles y colores, con envíos a comercios y revendedores de todo el país.`;
+  const url = `${BASE_URL}/productos/${categoria.slug}`;
+  const portada = getPortada(categoria);
+  const ogImage = portada ? `${BASE_URL}${portada.src}` : undefined;
 
   return {
     title,
     description,
+    keywords: [
+      `${nombreLower} por mayor`,
+      `${nombreLower} mayorista`,
+      `${nombreLower} para revender`,
+      `proveedor de ${nombreLower}`,
+      `${nombreLower} para locales de ropa`,
+      "ropa por mayor",
+      "indumentaria mayorista Argentina",
+    ],
     alternates: {
-      canonical: `https://mayorista.mirrow.com.ar/productos/${categoria.slug}`,
+      canonical: url,
     },
-    openGraph: { title, description },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: ogImage ? [{ url: ogImage, alt: portada?.alt }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
+    },
   };
 }
 
@@ -60,8 +87,49 @@ export default async function CategoriaPage({ params }: Props) {
     ...categoria.modelos.map((modelo) => ({ key: modelo.slug, nombre: modelo.nombre, fotos: modelo.fotos })),
   ];
 
+  const categoriaUrl = `${BASE_URL}/productos/${categoria.slug}`;
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Catálogo", item: `${BASE_URL}/#productos` },
+      { "@type": "ListItem", position: 3, name: categoria.nombre, item: categoriaUrl },
+    ],
+  };
+
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${categoria.nombre} por mayor`,
+    description: `Catálogo mayorista de ${categoria.nombre.toLowerCase()} de Mirrow.`,
+    url: categoriaUrl,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Product",
+          name: item.nombre ? `${categoria.nombre} ${item.nombre}` : categoria.nombre,
+          image: item.fotos.map((foto) => `${BASE_URL}${foto.src}`),
+          brand: { "@type": "Brand", name: "Mirrow" },
+        },
+      })),
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
       <Header />
       <main className="flex-1">
         <section className="bg-[var(--color-ink)] pb-6 pt-28 text-white sm:pt-36">
