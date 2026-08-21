@@ -15,7 +15,7 @@ const bodyFont = Inter({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://mayorista.mirrow.com.ar";
+const siteUrl = "https://www.grupomirrow.com.ar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
