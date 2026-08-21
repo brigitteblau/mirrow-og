@@ -3,7 +3,7 @@ import { PROVINCIAS } from "@/lib/provincias";
 import { getCatalogo } from "@/lib/catalogo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-const base = "https://grupomirrow.com.ar";
+const base = "https://www.grupomirrow.com.ar";
   return [
     {
       url: base,

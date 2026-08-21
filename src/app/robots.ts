@@ -6,6 +6,5 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://mayorista.mirrow.com.ar/sitemap.xml",
-  };
+sitemap: "https://www.grupomirrow.com.ar/sitemap.xml",  };
 }
