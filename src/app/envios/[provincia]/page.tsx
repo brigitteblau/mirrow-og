@@ -6,7 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import { PROVINCIAS } from "@/lib/provincias";
-import { getCatalogo } from "@/lib/catalogo";
+import { getCatalogo, getPortada, type Foto } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
 
 const STATS = [
@@ -45,13 +45,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function CategoriaCard({ slug, nombre }: { slug: string; nombre: string }) {
+function CategoriaCard({ slug, nombre, foto }: { slug: string; nombre: string; foto?: Foto }) {
   return (
     <Link href={`/productos/${slug}`} className="group block">
       <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[var(--color-gray-elegance)] transition-transform duration-300 group-hover:scale-[1.02]">
-        <span className="font-display text-lg font-extrabold uppercase tracking-tight text-[var(--color-ink)]/25">
-          MIRROW
-        </span>
+        {foto ? (
+          <Image
+            src={foto.src}
+            alt={foto.alt}
+            fill
+            sizes="(min-width: 1024px) 16vw, (min-width: 640px) 30vw, 45vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <span className="font-display text-lg font-extrabold uppercase tracking-tight text-[var(--color-ink)]/25">
+            MIRROW
+          </span>
+        )}
       </div>
       <h3 className="mt-3 flex items-center gap-1.5 text-sm font-bold text-[var(--color-ink)]">
         {nombre}
@@ -155,7 +165,11 @@ export default async function ProvinciaPage({ params }: Props) {
             <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
               {catalogo.map((categoria, index) => (
                 <Reveal key={categoria.slug} delay={index * 80}>
-                  <CategoriaCard slug={categoria.slug} nombre={categoria.nombre} />
+                  <CategoriaCard
+                    slug={categoria.slug}
+                    nombre={categoria.nombre}
+                    foto={getPortada(categoria)}
+                  />
                 </Reveal>
               ))}
             </div>

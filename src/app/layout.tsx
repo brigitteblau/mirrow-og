@@ -20,7 +20,7 @@ const siteUrl = "https://www.grupomirrow.com.ar";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Mirrow Mayorista | Indumentaria masculina al por mayor desde 1970",
+    default: "Importador Mayorista de Ropa",
     template: "%s | Mirrow Mayorista",
   },
   description:
