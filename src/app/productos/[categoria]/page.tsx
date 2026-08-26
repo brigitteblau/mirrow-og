@@ -44,6 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${nombreLower} para locales de ropa`,
       "ropa por mayor",
       "indumentaria mayorista Argentina",
+      "ropa mayorista Argentina",
     ],
     alternates: {
       canonical: url,
