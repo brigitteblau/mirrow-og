@@ -4,35 +4,22 @@ import { Reveal } from "./Reveal";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { getCatalogo, getPortada } from "@/lib/catalogo";
 
-function CategoriaArt({ foto }: { foto?: { src: string; alt: string } }) {
-  if (foto) {
-    return (
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-black/10 transition-transform duration-300 group-hover:scale-[1.02]">
-        <Image
-          src={foto.src}
-          alt={foto.alt}
-          fill
-          sizes="(min-width: 640px) 33vw, 50vw"
-          className="object-cover"
-        />
-      </div>
-    );
-  }
-
+function CategoriaArt({ foto }: { foto: { src: string; alt: string } }) {
   return (
-    <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[var(--color-gray-elegance)] transition-transform duration-300 group-hover:scale-[1.02]">
-      <span className="font-display text-lg font-extrabold uppercase tracking-tight text-[var(--color-ink)]/25">
-        MIRROW
-      </span>
-      <span className="absolute bottom-3 right-3 rounded-full border border-black/10 bg-white px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-black/40">
-        Fotos próximamente
-      </span>
+    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-black/10 transition-transform duration-300 group-hover:scale-[1.02]">
+      <Image
+        src={foto.src}
+        alt={foto.alt}
+        fill
+        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+        className="object-cover"
+      />
     </div>
   );
 }
 
 export async function Products() {
-  const catalogo = await getCatalogo();
+  const catalogo = (await getCatalogo()).filter((categoria) => getPortada(categoria));
 
   return (
     <section id="productos" className="scroll-mt-24 bg-white py-20 sm:py-28">
@@ -56,16 +43,16 @@ export async function Products() {
           </a>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-2 gap-5 sm:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {catalogo.map((categoria, index) => (
             <Reveal key={categoria.slug} delay={index * 80}>
               <Link href={`/productos/${categoria.slug}`} className="group block">
-                <CategoriaArt foto={getPortada(categoria)} />
-                <h3 className="mt-3 flex items-center gap-1.5 text-base font-bold text-[var(--color-ink)]">
+                <CategoriaArt foto={getPortada(categoria)!} />
+                <h3 className="mt-4 flex items-center gap-2 text-lg font-bold text-[var(--color-ink)]">
                   {categoria.nombre}
                   <svg
-                    width="14"
-                    height="14"
+                    width="16"
+                    height="16"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
