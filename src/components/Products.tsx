@@ -4,35 +4,8 @@ import { Reveal } from "./Reveal";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { getCatalogo, getPortada } from "@/lib/catalogo";
 
-function CategoriaArt({ foto }: { foto?: { src: string; alt: string } }) {
-  if (foto) {
-    return (
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-black/10 transition-transform duration-300 group-hover:scale-[1.02]">
-        <Image
-          src={foto.src}
-          alt={foto.alt}
-          fill
-          sizes="(min-width: 640px) 33vw, 50vw"
-          className="object-cover"
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[var(--color-gray-elegance)] transition-transform duration-300 group-hover:scale-[1.02]">
-      <span className="font-display text-lg font-extrabold uppercase tracking-tight text-[var(--color-ink)]/25">
-        MIRROW
-      </span>
-      <span className="absolute bottom-3 right-3 rounded-full border border-black/10 bg-white px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-black/40">
-        Fotos próximamente
-      </span>
-    </div>
-  );
-}
-
 export async function Products() {
-  const catalogo = await getCatalogo();
+  const catalogo = (await getCatalogo()).filter((categoria) => getPortada(categoria));
 
   return (
     <section id="productos" className="scroll-mt-24 bg-white py-20 sm:py-28">
@@ -56,28 +29,46 @@ export async function Products() {
           </a>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-2 gap-5 sm:grid-cols-3">
-          {catalogo.map((categoria, index) => (
-            <Reveal key={categoria.slug} delay={index * 80}>
-              <Link href={`/productos/${categoria.slug}`} className="group block">
-                <CategoriaArt foto={getPortada(categoria)} />
-                <h3 className="mt-3 flex items-center gap-1.5 text-base font-bold text-[var(--color-ink)]">
-                  {categoria.nombre}
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="mt-0.5 transition-transform duration-300 group-hover:translate-x-1"
+        <div className="mt-14 grid grid-cols-2 gap-5 sm:grid-cols-4">
+          {catalogo.map((categoria, index) => {
+            const foto = getPortada(categoria)!;
+            const destacada = index === 0;
+
+            return (
+              <Reveal
+                key={categoria.slug}
+                delay={index * 80}
+                className={destacada ? "col-span-2 row-span-2" : ""}
+              >
+                <Link
+                  href={`/productos/${categoria.slug}`}
+                  className={`group relative block h-full w-full overflow-hidden rounded-2xl border border-black/10 ${
+                    destacada ? "aspect-square sm:aspect-auto sm:h-full" : "aspect-[4/5]"
+                  }`}
+                >
+                  <Image
+                    src={foto.src}
+                    alt={foto.alt}
+                    fill
+                    sizes={
+                      destacada
+                        ? "(min-width: 640px) 50vw, 100vw"
+                        : "(min-width: 640px) 25vw, 50vw"
+                    }
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
+                  <h3
+                    className={`font-display absolute bottom-0 left-0 p-4 font-extrabold uppercase tracking-tight text-white drop-shadow ${
+                      destacada ? "text-2xl sm:text-3xl" : "text-sm"
+                    }`}
                   >
-                    <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </h3>
-              </Link>
-            </Reveal>
-          ))}
+                    {categoria.nombre}
+                  </h3>
+                </Link>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
