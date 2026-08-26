@@ -87,7 +87,7 @@ export default async function ProvinciaPage({ params }: Props) {
   if (!provincia) notFound();
 
   const otras = PROVINCIAS.filter((p) => p.slug !== provincia.slug).slice(0, 8);
-  const catalogo = getCatalogo();
+  const catalogo = await getCatalogo();
 
   return (
     <>

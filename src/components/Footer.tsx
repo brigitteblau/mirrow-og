@@ -13,8 +13,8 @@ const EMPRESA = [
 const linkClass =
   "inline-block transition-all duration-300 ease-out hover:translate-x-1 hover:text-white";
 
-export function Footer() {
-  const catalogo = getCatalogo();
+export async function Footer() {
+  const catalogo = await getCatalogo();
 
   return (
     <footer className="bg-[var(--color-ink)] py-16 text-white">

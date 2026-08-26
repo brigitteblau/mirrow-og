@@ -10,8 +10,9 @@ import { whatsappUrl } from "@/lib/whatsapp";
 
 const BASE_URL = "https://mayorista.mirrow.com.ar";
 
-export function generateStaticParams() {
-  return getCatalogo().map((categoria) => ({ categoria: categoria.slug }));
+export async function generateStaticParams() {
+  const catalogo = await getCatalogo();
+  return catalogo.map((categoria) => ({ categoria: categoria.slug }));
 }
 
 type Props = {
@@ -20,15 +21,17 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { categoria: slug } = await params;
-  const categoria = getCategoria(slug);
+  const categoria = await getCategoria(slug);
   if (!categoria) return {};
 
   const nombreLower = categoria.nombre.toLowerCase();
   const title = `${categoria.nombre} por Mayor | Mirrow Indumentaria Mayorista`;
-  const description = `Comprá ${nombreLower} por mayor en Mirrow: producción propia e importación, variedad de talles y colores, con envíos a comercios y revendedores de todo el país.`;
+  const description = categoria.descripcion
+    ? `${categoria.descripcion} Comprá ${nombreLower} por mayor en Mirrow, con envíos a comercios y revendedores de todo el país.`
+    : `Comprá ${nombreLower} por mayor en Mirrow: producción propia e importación, variedad de talles y colores, con envíos a comercios y revendedores de todo el país.`;
   const url = `${BASE_URL}/productos/${categoria.slug}`;
   const portada = getPortada(categoria);
-  const ogImage = portada ? `${BASE_URL}${portada.src}` : undefined;
+  const ogImage = portada?.src;
 
   return {
     title,
@@ -76,15 +79,25 @@ function EmptyState() {
 
 export default async function CategoriaPage({ params }: Props) {
   const { categoria: slug } = await params;
-  const categoria = getCategoria(slug);
+  const categoria = await getCategoria(slug);
   if (!categoria) notFound();
 
-  const catalogo = getCatalogo();
+  const catalogo = await getCatalogo();
   const otras = catalogo.filter((c) => c.slug !== categoria.slug);
   const totalFotos = contarFotos(categoria);
   const items = [
-    ...categoria.fotos.map((foto) => ({ key: foto.src, nombre: undefined as string | undefined, fotos: [foto] })),
-    ...categoria.modelos.map((modelo) => ({ key: modelo.slug, nombre: modelo.nombre, fotos: modelo.fotos })),
+    ...categoria.fotos.map((foto) => ({
+      key: foto.src,
+      nombre: undefined as string | undefined,
+      descripcion: categoria.descripcion,
+      fotos: [foto],
+    })),
+    ...categoria.modelos.map((modelo) => ({
+      key: modelo.slug,
+      nombre: modelo.nombre,
+      descripcion: modelo.descripcion,
+      fotos: modelo.fotos,
+    })),
   ];
 
   const categoriaUrl = `${BASE_URL}/productos/${categoria.slug}`;
@@ -113,7 +126,7 @@ export default async function CategoriaPage({ params }: Props) {
         item: {
           "@type": "Product",
           name: item.nombre ? `${categoria.nombre} ${item.nombre}` : categoria.nombre,
-          image: item.fotos.map((foto) => `${BASE_URL}${foto.src}`),
+          image: item.fotos.map((foto) => foto.src),
           brand: { "@type": "Brand", name: "Mirrow" },
         },
       })),
@@ -176,6 +189,9 @@ export default async function CategoriaPage({ params }: Props) {
                       <h2 className="font-display mt-2 text-2xl font-extrabold uppercase tracking-tight text-[var(--color-ink)] sm:text-3xl">
                         {item.nombre}
                       </h2>
+                    )}
+                    {item.descripcion && (
+                      <p className="mt-3 text-sm leading-relaxed text-black/60">{item.descripcion}</p>
                     )}
                     {item.fotos.length > 1 && (
                       <p className="mt-4 text-sm text-black/50">Disponible en {item.fotos.length} colores.</p>

@@ -1,15 +1,6 @@
-import fs from "node:fs";
-import path from "node:path";
+import { unstable_cache } from "next/cache";
 
-const PRODUCTOS_DIR = path.join(process.cwd(), "public", "productos");
-
-const IMAGE_EXTENSIONS = new Set([
-  ".png",
-  ".jpg",
-  ".jpeg",
-  ".webp",
-  ".gif",
-]);
+const POCKETBASE_URL = process.env.POCKETBASE_URL;
 
 export type Foto = {
   src: string;
@@ -19,36 +10,49 @@ export type Foto = {
 export type Modelo = {
   slug: string;
   nombre: string;
+  descripcion?: string;
   fotos: Foto[];
 };
 
 export type CategoriaCatalogo = {
   slug: string;
   nombre: string;
-  /** Fotos ubicadas directamente en la carpeta de la categoría, sin subcarpeta de modelo. */
+  descripcion?: string;
+  /** Fotos ubicadas directamente en la categoría, sin modelo asociado. */
   fotos: Foto[];
   modelos: Modelo[];
 };
 
-function slugify(input: string): string {
+type PocketBaseFileField = string[];
+
+type CategoriaRecord = {
+  id: string;
+  slug: string;
+  nombre: string;
+  descripcion?: string;
+  fotos: PocketBaseFileField;
+};
+
+type ModeloRecord = {
+  id: string;
+  categoria: string;
+  slug: string;
+  nombre: string;
+  descripcion?: string;
+  fotos: PocketBaseFileField;
+};
+
+type PocketBaseListResponse<T> = {
+  items: T[];
+};
+
+export function slugify(input: string): string {
   return input
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
-}
-
-function humanize(folderName: string): string {
-  return folderName
-    .split(/[\s-_]+/)
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-function isImageFile(name: string): boolean {
-  return IMAGE_EXTENSIONS.has(path.extname(name).toLowerCase());
 }
 
 /**
@@ -86,143 +90,84 @@ const ALT_VARIATIONS = [
   (product: string) => `${product} ropa mayorista para comercios`,
 ];
 
-function listImages(
-  dir: string,
-  publicPrefix: string,
+function buildFotos(
+  record: { id: string; fotos: PocketBaseFileField },
+  collection: "categorias" | "modelos",
   productName: string
 ): Foto[] {
-  if (!fs.existsSync(dir)) return [];
-
-  return fs
-    .readdirSync(dir, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && isImageFile(entry.name))
-    .map((entry) => entry.name)
-    .sort((a, b) =>
-      a.localeCompare(b, undefined, {
-        numeric: true,
-      })
-    )
-    .map((name, index) => {
-      const variation =
-        ALT_VARIATIONS[index % ALT_VARIATIONS.length];
-
-      return {
-        src: `${publicPrefix}/${encodeURIComponent(name)}`,
-        alt: variation(productName),
-      };
-    });
-}
-
-function readCatalogo(): CategoriaCatalogo[] {
-  if (!fs.existsSync(PRODUCTOS_DIR)) return [];
-
-  const categoriaFolders = fs
-    .readdirSync(PRODUCTOS_DIR, {
-      withFileTypes: true,
-    })
-    .filter(
-      (entry) =>
-        entry.isDirectory() &&
-        !entry.name.startsWith(".")
-    )
-    .map((entry) => entry.name)
-    .sort();
-
-  return categoriaFolders.map((catFolder) => {
-    const catSlug = slugify(catFolder);
-    const catNombre = humanize(catFolder);
-    const catDir = path.join(
-      PRODUCTOS_DIR,
-      catFolder
-    );
-
-    const entries = fs.readdirSync(catDir, {
-      withFileTypes: true,
-    });
-
-    const modeloFolders = entries
-      .filter(
-        (entry) =>
-          entry.isDirectory() &&
-          !entry.name.startsWith(".")
-      )
-      .map((entry) => entry.name)
-      .sort();
-
-    /*
-     * Imágenes directamente dentro de la categoría.
-     *
-     * Ej:
-     * "Remeras por mayor | Mirrow"
-     * "Remeras mayorista para locales de ropa"
-     */
-    const fotos = listImages(
-      catDir,
-      `/productos/${encodeURIComponent(catFolder)}`,
-      catNombre
-    );
-
-    const modelos: Modelo[] = modeloFolders.map(
-      (modFolder) => {
-        const modSlug = slugify(modFolder);
-        const modNombre = humanize(modFolder);
-        const modDir = path.join(
-          catDir,
-          modFolder
-        );
-
-        /*
-         * Incluimos categoría + modelo.
-         *
-         * Ej:
-         * "Sweater SW1004 negro por mayor | Mirrow"
-         */
-        const productName =
-          `${catNombre} ${modNombre}`.trim();
-
-        return {
-          slug: modSlug,
-          nombre: modNombre,
-          fotos: listImages(
-            modDir,
-            `/productos/${encodeURIComponent(
-              catFolder
-            )}/${encodeURIComponent(modFolder)}`,
-            productName
-          ),
-        };
-      }
-    );
+  return record.fotos.map((filename, index) => {
+    const variation = ALT_VARIATIONS[index % ALT_VARIATIONS.length];
 
     return {
-      slug: catSlug,
-      nombre: catNombre,
-      fotos,
+      src: `${POCKETBASE_URL}/api/files/${collection}/${record.id}/${encodeURIComponent(filename)}`,
+      alt: variation(productName),
+    };
+  });
+}
+
+async function fetchCollection<T>(
+  collection: string
+): Promise<T[]> {
+  const url = `${POCKETBASE_URL}/api/collections/${collection}/records?perPage=200&sort=orden,nombre`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`No se pudo leer la colección "${collection}" de PocketBase (${res.status})`);
+  }
+
+  const data = (await res.json()) as PocketBaseListResponse<T>;
+  return data.items;
+}
+
+async function fetchCatalogoFromPocketBase(): Promise<CategoriaCatalogo[]> {
+  if (!POCKETBASE_URL) return [];
+
+  const [categoriaRecords, modeloRecords] = await Promise.all([
+    fetchCollection<CategoriaRecord>("categorias"),
+    fetchCollection<ModeloRecord>("modelos"),
+  ]);
+
+  return categoriaRecords.map((catRecord) => {
+    const modelosDeCategoria = modeloRecords.filter(
+      (modRecord) => modRecord.categoria === catRecord.id
+    );
+
+    const modelos: Modelo[] = modelosDeCategoria.map((modRecord) => {
+      const productName = `${catRecord.nombre} ${modRecord.nombre}`.trim();
+
+      return {
+        slug: modRecord.slug,
+        nombre: modRecord.nombre,
+        descripcion: modRecord.descripcion || undefined,
+        fotos: buildFotos(modRecord, "modelos", productName),
+      };
+    });
+
+    return {
+      slug: catRecord.slug,
+      nombre: catRecord.nombre,
+      descripcion: catRecord.descripcion || undefined,
+      fotos: buildFotos(catRecord, "categorias", catRecord.nombre),
       modelos,
     };
   });
 }
 
-let cache: CategoriaCatalogo[] | null = null;
+const getCachedCatalogo = unstable_cache(
+  fetchCatalogoFromPocketBase,
+  ["catalogo"],
+  { revalidate: 300, tags: ["catalogo"] }
+);
 
-export function getCatalogo(): CategoriaCatalogo[] {
-  if (process.env.NODE_ENV === "production") {
-    if (!cache) {
-      cache = readCatalogo();
-    }
-
-    return cache;
-  }
-
-  return readCatalogo();
+export async function getCatalogo(): Promise<CategoriaCatalogo[]> {
+  return getCachedCatalogo();
 }
 
-export function getCategoria(
+export async function getCategoria(
   slug: string
-): CategoriaCatalogo | undefined {
-  return getCatalogo().find(
-    (categoria) => categoria.slug === slug
-  );
+): Promise<CategoriaCatalogo | undefined> {
+  const catalogo = await getCatalogo();
+  return catalogo.find((categoria) => categoria.slug === slug);
 }
 
 export function getPortada(

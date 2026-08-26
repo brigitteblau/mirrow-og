@@ -31,8 +31,8 @@ function CategoriaArt({ foto }: { foto?: { src: string; alt: string } }) {
   );
 }
 
-export function Products() {
-  const catalogo = getCatalogo();
+export async function Products() {
+  const catalogo = await getCatalogo();
 
   return (
     <section id="productos" className="scroll-mt-24 bg-white py-20 sm:py-28">
