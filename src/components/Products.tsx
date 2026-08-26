@@ -32,9 +32,15 @@ export async function Products() {
         <div className="mt-14 grid grid-cols-2 gap-5 sm:grid-cols-3">
           {catalogo.map((categoria, index) => {
             const foto = getPortada(categoria)!;
+            const esUltimaSuelta =
+              index === catalogo.length - 1 && catalogo.length % 3 === 1;
 
             return (
-              <Reveal key={categoria.slug} delay={index * 80}>
+              <Reveal
+                key={categoria.slug}
+                delay={index * 80}
+                className={esUltimaSuelta ? "sm:col-start-2" : ""}
+              >
                 <Link
                   href={`/productos/${categoria.slug}`}
                   className="group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl border border-black/10"
