@@ -18,6 +18,8 @@ export type CategoriaCatalogo = {
   slug: string;
   nombre: string;
   descripcion?: string;
+  /** Texto opcional del badge (ej. "Nuevo", "Destacado"), cargado desde PocketBase. */
+  etiqueta?: string;
   /** Fotos ubicadas directamente en la categoría, sin modelo asociado. */
   fotos: Foto[];
   modelos: Modelo[];
@@ -30,6 +32,7 @@ type CategoriaRecord = {
   slug: string;
   nombre: string;
   descripcion?: string;
+  etiqueta?: string;
   fotos: PocketBaseFileField;
 };
 
@@ -147,6 +150,7 @@ async function fetchCatalogoFromPocketBase(): Promise<CategoriaCatalogo[]> {
       slug: catRecord.slug,
       nombre: catRecord.nombre,
       descripcion: catRecord.descripcion || undefined,
+      etiqueta: catRecord.etiqueta?.trim() || undefined,
       fotos: buildFotos(catRecord, "categorias", catRecord.nombre),
       modelos,
     };
