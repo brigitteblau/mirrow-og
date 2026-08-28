@@ -10,6 +10,8 @@ const NAV_LINKS = [
   { href: "/#productos", label: "Catálogo" },
   { href: "/#por-que-nosotros", label: "Mayoristas" },
   { href: "/#opiniones", label: "Opiniones" },
+  { href: "/blog", label: "Blog" },
+  { href: "/preguntas-frecuentes", label: "Preguntas" },
 ];
 
 export function Header() {

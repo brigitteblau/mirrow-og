@@ -40,6 +40,96 @@ body {
   font-family: var(--font-display), var(--font-body), Arial, sans-serif;
 }
 
+/* Cuerpo de las notas del blog: HTML que cargan los dueños desde el editor
+   enriquecido de PocketBase. Sin dependencias extra de tipografía. */
+.prose-mirrow {
+  color: color-mix(in srgb, var(--color-ink) 78%, transparent);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.prose-mirrow > * + * {
+  margin-top: 1.25em;
+}
+
+.prose-mirrow h2,
+.prose-mirrow h3,
+.prose-mirrow h4 {
+  font-family: var(--font-display), var(--font-body), Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+.prose-mirrow h2 {
+  font-size: 1.6rem;
+  margin-top: 2em;
+}
+
+.prose-mirrow h3 {
+  font-size: 1.25rem;
+  margin-top: 1.6em;
+}
+
+.prose-mirrow p,
+.prose-mirrow ul,
+.prose-mirrow ol,
+.prose-mirrow blockquote {
+  margin-top: 1.25em;
+}
+
+.prose-mirrow ul,
+.prose-mirrow ol {
+  padding-left: 1.4em;
+}
+
+.prose-mirrow ul {
+  list-style: disc;
+}
+
+.prose-mirrow ol {
+  list-style: decimal;
+}
+
+.prose-mirrow li + li {
+  margin-top: 0.4em;
+}
+
+.prose-mirrow a {
+  color: var(--color-red);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-mirrow a:hover {
+  color: var(--color-red-dark);
+}
+
+.prose-mirrow strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.prose-mirrow blockquote {
+  border-left: 3px solid var(--color-red);
+  padding-left: 1em;
+  font-style: italic;
+  color: color-mix(in srgb, var(--color-ink) 65%, transparent);
+}
+
+.prose-mirrow img {
+  border-radius: 1rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.prose-mirrow hr {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 2.5em 0;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;

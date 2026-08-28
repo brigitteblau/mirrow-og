@@ -10,6 +10,11 @@ const EMPRESA = [
   { href: "/#contacto", label: "Contacto" },
 ];
 
+const RECURSOS = [
+  { href: "/blog", label: "Blog mayorista" },
+  { href: "/preguntas-frecuentes", label: "Preguntas frecuentes" },
+];
+
 const linkClass =
   "inline-block transition-all duration-300 ease-out hover:translate-x-1 hover:text-white";
 
@@ -19,7 +24,7 @@ export async function Footer() {
   return (
     <footer className="bg-[var(--color-ink)] py-16 text-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
           <div>
             <Logo variant="light" />
             <p className="mt-4 max-w-xs text-sm text-white/60">
@@ -49,6 +54,21 @@ export async function Footer() {
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-white/70">
               {EMPRESA.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={linkClass}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40">
+              Recursos
+            </h3>
+            <ul className="mt-4 space-y-2 text-sm text-white/70">
+              {RECURSOS.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className={linkClass}>
                     {item.label}

@@ -7,6 +7,8 @@ import { ValueProps } from "@/components/ValueProps";
 import { Products } from "@/components/Products";
 import { WhyUs } from "@/components/WhyUs";
 import { Reviews } from "@/components/Reviews";
+import { BlogPreview } from "@/components/BlogPreview";
+import { Faq } from "@/components/Faq";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -23,6 +25,8 @@ export default function Home() {
         <ValueProps />
         <WhyUs />
         <Reviews />
+        <BlogPreview />
+        <Faq showViewAll />
         <Contact />
       </main>
       <Footer />

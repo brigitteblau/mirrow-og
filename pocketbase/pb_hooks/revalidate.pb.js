@@ -1,5 +1,5 @@
-// Avisa al sitio en Vercel que el catálogo cambió, para que invalide el
-// cache al instante en vez de esperar el revalidate por tiempo (5 min).
+// Avisa al sitio en Vercel que el catálogo o el blog cambiaron, para que
+// invalide el cache al instante en vez de esperar el revalidate por tiempo (5 min).
 //
 // Configurar en el entorno de PocketBase:
 //   REVALIDATE_URL    -> ej. https://mayorista.mirrow.com.ar/api/revalidate
@@ -26,14 +26,14 @@ function notifyRevalidate() {
 onRecordAfterCreateSuccess((e) => {
   notifyRevalidate();
   e.next();
-}, "categorias", "modelos");
+}, "categorias", "modelos", "posts");
 
 onRecordAfterUpdateSuccess((e) => {
   notifyRevalidate();
   e.next();
-}, "categorias", "modelos");
+}, "categorias", "modelos", "posts");
 
 onRecordAfterDeleteSuccess((e) => {
   notifyRevalidate();
   e.next();
-}, "categorias", "modelos");
+}, "categorias", "modelos", "posts");

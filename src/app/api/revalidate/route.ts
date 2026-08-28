@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
   }
 
   revalidateTag("catalogo", { expire: 0 });
+  revalidateTag("blog", { expire: 0 });
 
   return NextResponse.json({ revalidated: true });
 }

@@ -1,6 +1,6 @@
-// Genera automáticamente el "slug" a partir de "nombre" cuando el campo
-// viene vacío, para que los dueños solo tengan que escribir el nombre del
-// producto y nunca un slug a mano.
+// Genera automáticamente el "slug" a partir de "nombre" (categorías y modelos)
+// o de "titulo" (posts del blog) cuando el campo viene vacío, para que los
+// dueños solo tengan que escribir el nombre/título y nunca un slug a mano.
 
 /// <reference path="../pb_data/types.d.ts" />
 
@@ -21,16 +21,16 @@ function slugify(input) {
     .replace(/^-+|-+$/g, "");
 }
 
-onRecordCreateRequest((e) => {
-  if (!e.record.get("slug") && e.record.get("nombre")) {
-    e.record.set("slug", slugify(e.record.get("nombre")));
+function ensureSlug(e) {
+  if (!e.record.get("slug")) {
+    const fuente = e.record.get("nombre") || e.record.get("titulo");
+    if (fuente) {
+      e.record.set("slug", slugify(fuente));
+    }
   }
   e.next();
-}, "categorias", "modelos");
+}
 
-onRecordUpdateRequest((e) => {
-  if (!e.record.get("slug") && e.record.get("nombre")) {
-    e.record.set("slug", slugify(e.record.get("nombre")));
-  }
-  e.next();
-}, "categorias", "modelos");
+onRecordCreateRequest(ensureSlug, "categorias", "modelos", "posts");
+
+onRecordUpdateRequest(ensureSlug, "categorias", "modelos", "posts");
