@@ -120,6 +120,13 @@ export default async function ProductosIndexPage() {
                 Recorré las categorías del catálogo y escribinos por WhatsApp para recibir la
                 lista de precios mayoristas y la compra mínima vigente de cada artículo.
               </p>
+              <p>
+                ¿Es tu primera compra por mayor? En el{" "}
+                <Link href="/blog">blog mayorista</Link> explicamos cómo armar el pedido, las
+                curvas de talles y las modalidades de compra, y en{" "}
+                <Link href="/preguntas-frecuentes">preguntas frecuentes</Link> respondemos las
+                dudas más comunes sobre pagos y envíos.
+              </p>
             </div>
           </div>
         </section>

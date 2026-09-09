@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { preconnect, prefetchDNS } from "react-dom";
 import { Anybody, Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
@@ -119,7 +120,27 @@ const jsonLd = {
   },
 };
 
+function pocketbaseOrigin(): string | null {
+  const raw = process.env.POCKETBASE_URL;
+  if (!raw) return null;
+  try {
+    return new URL(raw).origin;
+  } catch {
+    return null;
+  }
+}
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  // Resource hints: la fuente de datos (PocketBase) sirve imágenes dentro del
+  // HTML de los posts, y Google Analytics carga desde googletagmanager.com.
+  // Adelantar la conexión reduce el tiempo hasta la primera imagen y el LCP.
+  const pbOrigin = pocketbaseOrigin();
+  if (pbOrigin) {
+    preconnect(pbOrigin, { crossOrigin: "anonymous" });
+    prefetchDNS(pbOrigin);
+  }
+  preconnect("https://www.googletagmanager.com");
+
   return (
     <html
       lang="es"

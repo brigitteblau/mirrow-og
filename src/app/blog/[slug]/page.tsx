@@ -6,6 +6,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import { getPosts, getPost, formatearFecha } from "@/lib/blog";
+import { getCatalogo, getPortada } from "@/lib/catalogo";
+import { PROVINCIAS } from "@/lib/provincias";
 import { whatsappUrl } from "@/lib/whatsapp";
 
 const BASE_URL = "https://www.grupomirrow.com.ar";
@@ -63,6 +65,13 @@ export default async function BlogPostPage({ params }: Props) {
 
   const otras = (await getPosts()).filter((p) => p.slug !== post.slug).slice(0, 3);
   const url = `${BASE_URL}/blog/${post.slug}`;
+
+  const categorias = (await getCatalogo()).filter((c) => getPortada(c)).slice(0, 6);
+  const provinciasDestacadas = PROVINCIAS.filter((p) =>
+    ["buenos-aires", "cordoba", "santa-fe", "mendoza", "neuquen", "salta", "tucuman"].includes(
+      p.slug
+    )
+  );
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -151,6 +160,58 @@ export default async function BlogPostPage({ params }: Props) {
                 className="prose-mirrow"
                 dangerouslySetInnerHTML={{ __html: post.contenidoHtml }}
               />
+
+              {(categorias.length > 0 || provinciasDestacadas.length > 0) && (
+                <div className="mt-12 border-t border-black/10 pt-8">
+                  {categorias.length > 0 && (
+                    <>
+                      <h2 className="font-display text-sm font-extrabold uppercase tracking-widest text-[var(--color-ink)]/50">
+                        Catálogo mayorista
+                      </h2>
+                      <ul className="mt-3 flex flex-wrap gap-2">
+                        <li>
+                          <Link
+                            href="/productos"
+                            className="rounded-full bg-[var(--color-ink)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-black"
+                          >
+                            Ver catálogo completo
+                          </Link>
+                        </li>
+                        {categorias.map((c) => (
+                          <li key={c.slug}>
+                            <Link
+                              href={`/productos/${c.slug}`}
+                              className="rounded-full border border-black/15 px-4 py-2 text-sm text-[var(--color-ink)]/70 transition-colors hover:border-[var(--color-red)] hover:text-[var(--color-red)]"
+                            >
+                              {c.nombre} por mayor
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+
+                  {provinciasDestacadas.length > 0 && (
+                    <>
+                      <h2 className="font-display mt-6 text-sm font-extrabold uppercase tracking-widest text-[var(--color-ink)]/50">
+                        Envíos por provincia
+                      </h2>
+                      <ul className="mt-3 flex flex-wrap gap-2">
+                        {provinciasDestacadas.map((p) => (
+                          <li key={p.slug}>
+                            <Link
+                              href={`/envios/${p.slug}`}
+                              className="rounded-full border border-black/15 px-4 py-2 text-sm text-[var(--color-ink)]/70 transition-colors hover:border-[var(--color-red)] hover:text-[var(--color-red)]"
+                            >
+                              Ropa por mayor en {p.nombre}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
