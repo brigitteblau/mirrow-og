@@ -29,7 +29,17 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Mayorista de indumentaria masculina para comercios y revendedores. Importación y producción propia, con distribución a todo el país.",
+    "Mayorista de indumentaria masculina para comercios y revendedores. Importación y producción propia, con distribución a todo el país. Comprá ropa de hombre por mayor con más de 56 años de trayectoria.",
+
+  keywords: [
+    "ropa de hombre por mayor",
+    "ropa de hombre mayorista argentina",
+    "indumentaria masculina mayorista",
+    "comprar ropa al por mayor",
+    "distribuidor de ropa hombre",
+    "mayorista de ropa argentina",
+    "proveedor de indumentaria",
+  ],
 
   alternates: {
     canonical: siteUrl,
@@ -38,6 +48,12 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 
   openGraph: {
@@ -48,6 +64,14 @@ export const metadata: Metadata = {
     title: "Mirrow Mayorista | Indumentaria masculina desde 1970",
     description:
       "Ropa de hombre por mayor para comercios y revendedores. Importación, producción y distribución en toda Argentina.",
+    images: [
+      {
+        url: "/images/fabrica-fachada.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mirrow, mayorista de indumentaria masculina en Argentina",
+      },
+    ],
   },
 
   twitter: {
@@ -55,23 +79,44 @@ export const metadata: Metadata = {
     title: "Mirrow Mayorista | Indumentaria masculina",
     description:
       "Venta mayorista para comercios y revendedores de todo el país.",
+    images: ["/images/fabrica-fachada.jpg"],
   },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ClothingStore",
+  "@id": `${siteUrl}/#organization`,
   name: "Mirrow",
+  alternateName: "Grupo Mirrow",
   description:
     "Importador, productor y distribuidor mayorista de indumentaria masculina en Argentina, con más de 56 años de trayectoria familiar.",
   foundingDate: "1970",
+  url: siteUrl,
+  logo: `${siteUrl}/images/mirrow-icon.svg`,
+  image: `${siteUrl}/images/fabrica-fachada.jpg`,
+  telephone: "+5491160192099",
+  priceRange: "$$",
+  currenciesAccepted: "ARS",
+  paymentAccepted: "Transferencia, depósito, débito, crédito, efectivo",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Buenos Aires",
+    addressLocality: "Ciudad Autónoma de Buenos Aires",
+    addressRegion: "CABA",
     addressCountry: "AR",
   },
-  areaServed: "AR",
-  url: siteUrl,
+  areaServed: {
+    "@type": "Country",
+    name: "Argentina",
+  },
+  knowsLanguage: "es-AR",
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    telephone: "+5491160192099",
+    availableLanguage: "Spanish",
+    areaServed: "AR",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -35,9 +35,16 @@ export async function Footer() {
 
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40">
-              Catálogo
+              <Link href="/productos" className={linkClass}>
+                Catálogo
+              </Link>
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-white/70">
+              <li>
+                <Link href="/productos" className={`${linkClass} font-semibold text-white`}>
+                  Ver catálogo completo
+                </Link>
+              </li>
               {catalogo.map((categoria) => (
                 <li key={categoria.slug}>
                   <Link href={`/productos/${categoria.slug}`} className={linkClass}>

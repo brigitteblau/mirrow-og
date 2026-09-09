@@ -8,7 +8,7 @@ import { ModeloGallery } from "@/components/ModeloGallery";
 import { getCatalogo, getCategoria, getPortada, contarFotos } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
 
-const BASE_URL = "https://mayorista.mirrow.com.ar";
+const BASE_URL = "https://www.grupomirrow.com.ar";
 
 export async function generateStaticParams() {
   const catalogo = await getCatalogo();
@@ -108,7 +108,7 @@ export default async function CategoriaPage({ params }: Props) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Inicio", item: BASE_URL },
-      { "@type": "ListItem", position: 2, name: "Catálogo", item: `${BASE_URL}/#productos` },
+      { "@type": "ListItem", position: 2, name: "Catálogo", item: `${BASE_URL}/productos` },
       { "@type": "ListItem", position: 3, name: categoria.nombre, item: categoriaUrl },
     ],
   };
@@ -154,7 +154,7 @@ export default async function CategoriaPage({ params }: Props) {
                 Inicio
               </Link>
               <span aria-hidden="true">/</span>
-              <Link href="/#productos" className="transition-colors hover:text-white">
+              <Link href="/productos" className="transition-colors hover:text-white">
                 Catálogo
               </Link>
               <span aria-hidden="true">/</span>

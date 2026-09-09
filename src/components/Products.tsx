@@ -26,16 +26,24 @@ export async function Products() {
             </h2>
           </div>
 
-          <a
-            href={whatsappUrl(
-              "Hola! Quiero la lista de precios mayoristas de Mirrow."
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-full border border-[var(--color-ink)] px-6 py-3 text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)] hover:text-white"
-          >
-            Pedir lista de precios
-          </a>
+          <div className="flex shrink-0 flex-wrap gap-3">
+            <Link
+              href="/productos"
+              className="rounded-full border border-[var(--color-ink)] px-6 py-3 text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)] hover:text-white"
+            >
+              Ver catálogo completo
+            </Link>
+            <a
+              href={whatsappUrl(
+                "Hola! Quiero la lista de precios mayoristas de Mirrow."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-[var(--color-red)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"
+            >
+              Pedir lista de precios
+            </a>
+          </div>
         </Reveal>
 
         {/* 

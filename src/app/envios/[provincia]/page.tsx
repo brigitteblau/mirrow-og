@@ -9,6 +9,8 @@ import { PROVINCIAS } from "@/lib/provincias";
 import { getCatalogo, getPortada, type Foto } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
 
+const BASE_URL = "https://www.grupomirrow.com.ar";
+
 const STATS = [
   { value: "56", label: "Años de trayectoria" },
   { value: "+100", label: "Comercios mayoristas" },
@@ -32,16 +34,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const provincia = getProvincia(slug);
   if (!provincia) return {};
 
-  const title = `Indumentaria masculina al por mayor en ${provincia.nombre} | Mirrow`;
-  const description = `Mirrow envía indumentaria masculina al por mayor a comercios de ${provincia.nombre}. Importación, producción propia y 56 años de trayectoria familiar.`;
+  const title = `Ropa de Hombre por Mayor en ${provincia.nombre} | Mirrow Mayorista`;
+  const description = `Comprá ropa de hombre por mayor en ${provincia.nombre}: Mirrow envía indumentaria masculina mayorista a comercios y revendedores con importación, producción propia y 56 años de trayectoria.`;
+  const url = `${BASE_URL}/envios/${provincia.slug}`;
 
   return {
     title,
     description,
+    keywords: [
+      `ropa mayorista ${provincia.nombre}`,
+      `ropa de hombre por mayor ${provincia.nombre}`,
+      `indumentaria mayorista ${provincia.nombre}`,
+      `distribuidor de ropa ${provincia.nombre}`,
+      "ropa por mayor Argentina",
+      "comprar ropa al por mayor",
+    ],
     alternates: {
-      canonical: `https://mayorista.mirrow.com.ar/envios/${provincia.slug}`,
+      canonical: url,
     },
-    openGraph: { title, description },
+    openGraph: { title, description, url, type: "website" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -88,9 +100,49 @@ export default async function ProvinciaPage({ params }: Props) {
 
   const otras = PROVINCIAS.filter((p) => p.slug !== provincia.slug).slice(0, 8);
   const catalogo = await getCatalogo();
+  const url = `${BASE_URL}/envios/${provincia.slug}`;
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: BASE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: `Envíos a ${provincia.nombre}`,
+        item: url,
+      },
+    ],
+  };
+
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Venta mayorista de indumentaria masculina",
+    provider: {
+      "@type": "Organization",
+      name: "Mirrow",
+      url: BASE_URL,
+    },
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: `${provincia.nombre}, Argentina`,
+    },
+    url,
+    description: `Mirrow distribuye ropa de hombre por mayor a comercios y revendedores de ${provincia.nombre}.`,
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
       <Header />
       <main className="flex-1">
         <section className="bg-[var(--color-ink)] pb-16 pt-32 text-white sm:pb-24 sm:pt-40">
