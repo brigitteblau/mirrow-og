@@ -5,7 +5,8 @@ import { whatsappUrl } from "@/lib/whatsapp";
 const SERVICES = [
   {
     title: "Venta mayorista",
-    description: "Contenedores completos, no muestras.",
+    description:
+      "Artículos con rotación y stock permanente. Elegís qué líneas trabajar.",
     image: "/images/taller-mesas.jpg",
     cta: "Pedir catálogo",
     href: whatsappUrl("Hola! Quiero pedir el catálogo mayorista de Mirrow."),
@@ -13,15 +14,17 @@ const SERVICES = [
   },
   {
     title: "Producción propia",
-    description: "Fabricación e importación con proveedores propios.",
+    description:
+      "Fabricación e importación con proveedores verificados. Desarrollamos el producto según lo que necesitás.",
     image: "/images/deposito-pasillo.jpg",
     cta: "Ver categorías",
     href: "#productos",
     external: false,
   },
   {
-    title: "Trabajá con nosotros",
-    description: "Sumate a la red de +100 comercios.",
+    title: "Trabajo en conjunto",
+    description:
+      "Sumate a la red de +100 comercios y escalá hasta manejar una línea completa de indumentaria.",
     image: "/images/deposito-rollos.png",
     cta: "Ser distribuidor",
     href: whatsappUrl("Hola! Quiero sumarme como distribuidor de Mirrow."),

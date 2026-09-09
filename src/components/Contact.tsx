@@ -7,14 +7,14 @@ export function Contact() {
       <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-red)]">
-            Sumate como mayorista
+            Contacto mayorista
           </p>
           <h2 className="font-display mt-3 text-3xl font-extrabold uppercase tracking-tight text-[var(--color-ink)] sm:text-4xl">
-            Hablemos de tu pedido
+            Hablemos de lo que necesitás
           </h2>
           <p className="mx-auto mt-5 max-w-md text-lg leading-relaxed text-black/60">
-            Contanos qué categorías y volúmenes necesitás. Te respondemos por WhatsApp
-            con catálogo y precios mayoristas.
+            Contanos qué categorías y volúmenes manejás. Te respondemos lo más rápido y
+            preciso posible.
           </p>
 
           <a
@@ -31,7 +31,7 @@ export function Contact() {
           </a>
 
           <p className="mt-6 text-sm text-black/50">
-            Mirrow · Buenos Aires, Argentina · Envíos a todo el país
+            Mirrow · Ciudad Autónoma de Buenos Aires, Argentina · Envíos a todo el país
           </p>
         </Reveal>
       </div>

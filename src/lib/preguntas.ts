@@ -5,24 +5,24 @@ export type Pregunta = {
 
 export const PREGUNTAS: Pregunta[] = [
   {
-    pregunta: "¿Cuál es la compra mínima para comprar por mayor?",
+    pregunta: "¿Cuál es el mínimo de compra?",
     respuesta:
-      "Trabajamos con curvas de talles por artículo. La compra mínima varía según la categoría y la temporada; escribinos por WhatsApp y te pasamos la mínima vigente y la lista de precios mayoristas.",
+      "El mínimo varía según la modalidad, la categoría y el artículo. Escribinos por WhatsApp y te pasamos la mínima vigente y cómo baja el precio por cantidad.",
   },
   {
     pregunta: "¿Cómo hago un pedido?",
     respuesta:
-      "Nos escribís por WhatsApp con los artículos y cantidades que necesitás. Te confirmamos stock, precios y forma de envío, coordinamos el pago y despachamos el pedido.",
+      "Cuando confirmás el producto, te enviamos los medios de pago y las condiciones según tu orden. Una vez listo, lo despachamos por correo y expresos a todo el país. Para servicio de importación, escribinos por mail.",
   },
   {
     pregunta: "¿Le venden a consumidor final o solo a comercios?",
     respuesta:
-      "Somos mayoristas: vendemos a comercios de indumentaria, revendedores y emprendedores. No hacemos venta minorista por unidad.",
+      "Trabajamos con comercios y marcas al por mayor. Para consumidor final tenemos nuestra tienda online: www.tiendamirrow.com.",
   },
   {
     pregunta: "¿Qué medios de pago aceptan?",
     respuesta:
-      "Transferencia bancaria y depósito. Para pedidos recurrentes podemos acordar condiciones. Te confirmamos los datos al momento de cerrar el pedido.",
+      "Transferencia, depósito, débito, crédito y efectivo. Para pedidos recurrentes podemos acordar condiciones. Te confirmamos los datos al cerrar el pedido.",
   },
   {
     pregunta: "¿Hacen envíos a todo el país?",
@@ -37,16 +37,16 @@ export const PREGUNTAS: Pregunta[] = [
   {
     pregunta: "¿Cómo son los talles y las curvas?",
     respuesta:
-      "Cada artículo se vende por curva de talles. Al pasarte la lista te indicamos qué talles incluye cada curva y los colores disponibles.",
+      "Cada producto tiene su curva de talles definida. Al planificar la compra te asesoramos sobre la curva más conveniente para esa prenda.",
   },
   {
     pregunta: "¿Puedo pedir prendas con mi propia marca?",
     respuesta:
-      "Sí. Producimos con tu marca (etiquetas y packaging propios) a partir de cantidades mínimas por modelo. Consultanos por WhatsApp y te contamos telas, tiempos y mínimos de producción.",
+      "Sí. Podés desarrollar un producto propio o personalizar uno ya disponible. Tenemos servicio de etiquetado, estampado, bordado, planchado y embolsado. Consultanos por WhatsApp por telas, tiempos y mínimos de producción.",
   },
   {
-    pregunta: "¿Cómo me hago cliente mayorista?",
+    pregunta: "Necesito uniformes para mi empresa o institución",
     respuesta:
-      "No hace falta un trámite complejo: escribinos por WhatsApp, contanos qué tipo de comercio tenés y te damos de alta para enviarte catálogo y precios mayoristas.",
+      "Lo más conveniente es personalizar un producto: así no vas a tener problema al reponer. Mandanos los detalles junto con las cantidades a realizar y te armamos la propuesta.",
   },
 ];

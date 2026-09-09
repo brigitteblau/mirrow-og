@@ -24,6 +24,11 @@ const SLIDES = [
     eyebrow: "Alcance nacional",
     title: "Más de 100 comercios confían en nosotros",
   },
+  {
+    image: "/images/taller-mesas.jpg",
+    eyebrow: "Atención personalizada online",
+    title: "El paso a paso para arrancar juntos",
+  },
 ];
 
 const SWIPE_THRESHOLD = 45;

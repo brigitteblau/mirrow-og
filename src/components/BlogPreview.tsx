@@ -20,7 +20,7 @@ export async function BlogPreview() {
               Blog mayorista
             </p>
             <h2 className="font-display mt-3 text-3xl font-extrabold uppercase tracking-tight text-[var(--color-ink)] sm:text-4xl">
-              Notas para comercios y revendedores
+              Notas para comercios y marcas
             </h2>
           </div>
 

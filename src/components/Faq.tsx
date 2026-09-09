@@ -18,7 +18,7 @@ type FaqProps = {
 export function Faq({
   preguntas = PREGUNTAS,
   heading = "Preguntas frecuentes",
-  bajada = "Todo lo que necesitás saber antes de tu primer pedido mayorista.",
+  bajada = "Todo lo que necesitás saber para trabajar con nosotros.",
   showViewAll = false,
   withJsonLd = true,
   id = "preguntas-frecuentes",

@@ -31,8 +31,11 @@ export function Trajectory() {
               Tres generaciones en el rubro textil
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-black/60">
-              De una camisería de barrio a un mayorista que hoy provee a más de 100
-              comercios en todo el país.
+              Empezamos con una camisería de barrio. Hoy somos{" "}
+              <strong className="font-semibold text-[var(--color-ink)]">
+                fabricante y distribuidor
+              </strong>{" "}
+              de más de 100 comercios en todo el país.
             </p>
           </Reveal>
 

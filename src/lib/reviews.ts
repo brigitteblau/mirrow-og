@@ -7,7 +7,7 @@ export type Review = {
 export const REVIEWS: Review[] = [
   {
     quote:
-      "Trabajo con Mirrow hace más de 8 años. Nunca me fallaron con un pedido y siempre tengo stock a tiempo para la temporada.",
+      "Trabajo con Mirrow hace más de 8 años. Son muy comprometidos con la atención y siempre llego a la temporada con stock a tiempo.",
     name: "Ricardo D.",
     business: "Indumentaria Ricardo, La Matanza",
   },

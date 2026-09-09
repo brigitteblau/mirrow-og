@@ -2,7 +2,7 @@ import { whatsappUrl } from "@/lib/whatsapp";
 
 export function WhatsAppFloat() {
   const message =
-    "Hola! 👋 Quiero recibir información para ser cliente mayorista de Mirrow.";
+    "Hola, soy ______. Estoy buscando información sobre ______.";
 
   return (
     <a

@@ -46,22 +46,37 @@ function TruckIcon() {
   );
 }
 
+function BoxIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+      <path d="M12 3.5 4 7v10l8 3.5L20 17V7l-8-3.5Z" strokeLinejoin="round" />
+      <path d="M4 7l8 3.5L20 7M12 10.5V20" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 const STEPS = [
   {
     icon: ChatIcon,
-    title: "Pedir el catálogo por WhatsApp",
+    title: "Escribinos por WhatsApp o mail",
   },
   {
     icon: MonitorIcon,
-    title: "Entrar al link mayorista y armar el pedido (caja, media caja o curva)",
+    title:
+      "Contanos qué productos buscás y qué modalidad te interesa: importación, fabricación o distribución",
   },
   {
     icon: HeadsetIcon,
-    title: "Arreglar con el vendedor forma de pago y envío",
+    title: "Pasanos el nombre de tu comercio y cómo trabajás hoy",
+  },
+  {
+    icon: BoxIcon,
+    title:
+      "Te mostramos el stock disponible, lo que está por ingresar y cómo quedaría tu producto",
   },
   {
     icon: TruckIcon,
-    title: "Pagás y despachamos (o retirás por depósito)",
+    title: "Acordamos cantidades, plazos y fecha de envío",
   },
 ];
 
@@ -79,10 +94,10 @@ export function HowToBuy() {
         <div className="absolute inset-0 bg-[var(--color-ink)]/80" />
         <Reveal className="relative mx-auto w-full max-w-4xl px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-white/60">
-            Comprá mayorista sin salir de tu comercio
+            Te atendemos de forma personalizada online
           </p>
           <h2 className="font-display mt-3 max-w-xl text-3xl font-extrabold uppercase leading-tight tracking-tight sm:text-5xl">
-            El paso a paso para comprar online
+            El paso a paso para arrancar juntos
           </h2>
           <div className="mt-6 h-0.5 w-16 bg-[var(--color-red)]" />
         </Reveal>
