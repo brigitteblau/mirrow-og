@@ -3,7 +3,7 @@ import { preconnect, prefetchDNS } from "react-dom";
 import { Anybody, Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { ContactChat } from "@/components/ContactChat";
 import { PageTransition } from "@/components/PageTransition";
 
 import "./globals.css";
@@ -156,7 +156,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <PageTransition>{children}</PageTransition>
 
-        <WhatsAppFloat />
+        <ContactChat />
       </body>
 
       <GoogleAnalytics gaId="G-EDMW6GN7HJ" />
