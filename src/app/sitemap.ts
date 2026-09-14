@@ -28,6 +28,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    {
+      url: `${base}/mayorista-ropa`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     ...catalogo.map((categoria) => ({
       url: `${base}/productos/${categoria.slug}`,
       changeFrequency: "weekly" as const,
@@ -35,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     ...posts.map((post) => ({
       url: `${base}/blog/${post.slug}`,
-      lastModified: post.publicado,
+      lastModified: new Date(post.publicado.replace(" ", "T")),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),

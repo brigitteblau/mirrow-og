@@ -11,6 +11,7 @@ const EMPRESA = [
 ];
 
 const RECURSOS = [
+  { href: "/mayorista-ropa", label: "Mayorista de ropa" },
   { href: "/blog", label: "Blog mayorista" },
   { href: "/preguntas-frecuentes", label: "Preguntas frecuentes" },
 ];
