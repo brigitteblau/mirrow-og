@@ -32,6 +32,12 @@ export async function Footer() {
               Indumentaria masculina al por mayor desde 1970. Importación, producción y
               distribución para comercios de todo el país.
             </p>
+            <a
+              href="mailto:ventas@grupomirrow.com"
+              className={`mt-4 inline-block text-sm text-white/70 ${linkClass}`}
+            >
+              ventas@grupomirrow.com
+            </a>
           </div>
 
           <div>
