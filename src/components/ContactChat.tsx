@@ -72,6 +72,8 @@ const STEPS: Step[] = [
   },
 ];
 
+export const OPEN_CONTACT_CHAT_EVENT = "mirrow:open-contact-chat";
+
 const STORAGE_KEY = "mirrow_contact_chat_v2";
 const LAST_STEP = STEPS.length - 1;
 
@@ -201,6 +203,13 @@ export function ContactChat() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
+  /* Permite abrir el chat desde otros componentes (p. ej. el header). */
+  useEffect(() => {
+    const onOpen = () => setOpen(true);
+    window.addEventListener(OPEN_CONTACT_CHAT_EVENT, onOpen);
+    return () => window.removeEventListener(OPEN_CONTACT_CHAT_EVENT, onOpen);
+  }, []);
 
   const submitAnswer = useCallback(
     (raw: string) => {
