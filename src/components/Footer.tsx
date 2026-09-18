@@ -16,6 +16,8 @@ const RECURSOS = [
   { href: "/preguntas-frecuentes", label: "Preguntas frecuentes" },
 ];
 
+const TIENDA_MINORISTA_URL = "https://tiendamirrow.com";
+
 const linkClass =
   "inline-block transition-all duration-300 ease-out hover:translate-x-1 hover:text-white";
 
@@ -38,6 +40,24 @@ export async function Footer() {
             >
               ventas@grupomirrow.com
             </a>
+            <div className="mt-3 flex flex-col gap-1.5 text-sm text-white/70">
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Mirrow+Castelli+334+Buenos+Aires"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkClass}
+              >
+                Mirrow Castelli — Castelli 334, Once
+              </a>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Mirrow+Showroom+Sarmiento+2790+Buenos+Aires"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkClass}
+              >
+                Showroom Sarmiento — Sarmiento 2790, Once
+              </a>
+            </div>
           </div>
 
           <div>
@@ -89,6 +109,16 @@ export async function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href={TIENDA_MINORISTA_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkClass}
+                >
+                  Tienda minorista
+                </a>
+              </li>
             </ul>
           </div>
 
