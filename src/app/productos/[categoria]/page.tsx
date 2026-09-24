@@ -198,16 +198,17 @@ export default async function CategoriaPage({ params }: Props) {
                       <p className="mt-4 text-sm text-black/50">Disponible en {item.fotos.length} colores.</p>
                     )}
                     <p className="mt-4 text-sm text-black/60">
-                      También lo producimos con tu marca.{" "}
+                      ¿Tenés una marca o un comercio? Lo fabricamos con tu etiqueta desde{" "}
+                      <span className="font-semibold text-[var(--color-ink)]">50 prendas</span>.{" "}
                       <a
                         href={whatsappUrl(
-                          `Hola! Quiero pedir ${item.nombre ? `el modelo ${item.nombre} de ` : ""}${categoria.nombre} de Mirrow con mi marca.`
+                          `Hola! Tengo una marca/comercio y quiero producir ${item.nombre ? `el modelo ${item.nombre} de ` : ""}${categoria.nombre} con mi marca (mínimo 50 prendas).`
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-semibold text-[var(--color-red)] underline underline-offset-2 transition-colors hover:text-[var(--color-red-dark)]"
                       >
-                        Consultanos por WhatsApp
+                        Pedí tu cotización
                       </a>
                     </p>
                   </div>

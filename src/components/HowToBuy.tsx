@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
-import { whatsappUrl } from "@/lib/whatsapp";
+import { OpenContactChatButton } from "./OpenContactChatButton";
 
 function ChatIcon() {
   return (
@@ -140,14 +140,11 @@ export function HowToBuy() {
             })}
           </ol>
 
-          <a
-            href={whatsappUrl("Hola! Quiero empezar a comprar mayorista en Mirrow.")}
-            target="_blank"
-            rel="noopener noreferrer"
+          <OpenContactChatButton
             className="mt-14 inline-block rounded-full bg-[var(--color-red)] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"
           >
             Empezar por WhatsApp
-          </a>
+          </OpenContactChatButton>
         </div>
       </div>
     </section>
