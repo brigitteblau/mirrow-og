@@ -5,12 +5,13 @@ import { Footer } from "@/components/Footer";
 import { Faq } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { mailtoUrl } from "@/lib/email";
 
 const BASE_URL = "https://www.grupomirrow.com.ar";
 
 const title = "Preguntas Frecuentes | Mirrow Indumentaria Mayorista";
 const description =
-  "Resolvemos las dudas más comunes sobre comprar ropa por mayor en Mirrow: compra mínima, pedidos por WhatsApp, medios de pago, envíos a todo el país, talles y producción con marca propia.";
+  "Resolvemos las dudas más comunes sobre comprar ropa por mayor en Mirrow: compra mínima, pedidos por WhatsApp, medios de pago, envíos a todo el país, talles y uniformes para empresas.";
 
 export const metadata: Metadata = {
   title,
@@ -74,14 +75,22 @@ export default function PreguntasFrecuentesPage() {
             <p className="text-xl font-medium leading-relaxed text-white sm:text-2xl">
               ¿Tenés otra consulta? Escribinos y te respondemos al instante.
             </p>
-            <a
-              href={whatsappUrl("Hola! Tengo una consulta sobre la venta mayorista de Mirrow.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
-            >
-              Escribinos por WhatsApp
-            </a>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href={whatsappUrl("Hola! Tengo una consulta sobre la venta mayorista de Mirrow.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
+              >
+                Escribinos por WhatsApp
+              </a>
+              <a
+                href={mailtoUrl("Consulta mayorista")}
+                className="inline-block rounded-full border border-white/60 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                Escribinos por mail
+              </a>
+            </div>
           </Reveal>
         </section>
       </main>

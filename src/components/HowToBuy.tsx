@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
-import { OpenContactChatButton } from "./OpenContactChatButton";
+import { whatsappUrl } from "@/lib/whatsapp";
+import { mailtoUrl } from "@/lib/email";
 
 function ChatIcon() {
   return (
@@ -63,7 +64,7 @@ const STEPS = [
   {
     icon: MonitorIcon,
     title:
-      "Contanos qué productos buscás y qué modalidad te interesa: importación, fabricación o distribución",
+      "Contanos qué productos y cantidades buscás",
   },
   {
     icon: HeadsetIcon,
@@ -72,7 +73,7 @@ const STEPS = [
   {
     icon: BoxIcon,
     title:
-      "Te mostramos el stock disponible, lo que está por ingresar y cómo quedaría tu producto",
+      "Te mostramos el stock disponible y lo que está por ingresar",
   },
   {
     icon: TruckIcon,
@@ -140,11 +141,22 @@ export function HowToBuy() {
             })}
           </ol>
 
-          <OpenContactChatButton
-            className="mt-14 inline-block rounded-full bg-[var(--color-red)] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"
-          >
-            Empezar por WhatsApp
-          </OpenContactChatButton>
+          <div className="mt-14 flex flex-wrap gap-3">
+            <a
+              href={whatsappUrl("Hola! Quiero empezar a comprar mayorista en Mirrow.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-full bg-[var(--color-red)] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"
+            >
+              Empezar por WhatsApp
+            </a>
+            <a
+              href={mailtoUrl("Consulta mayorista")}
+              className="inline-block rounded-full border border-white/40 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+            >
+              Escribinos por mail
+            </a>
+          </div>
         </div>
       </div>
     </section>

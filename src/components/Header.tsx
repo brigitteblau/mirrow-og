@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
-import { OPEN_CONTACT_CHAT_EVENT } from "./ContactChat";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 const NAV_LINKS = [
   { href: "/#historia", label: "Empresa" },
@@ -53,13 +53,14 @@ export function Header() {
           <span className="hidden text-sm font-medium text-white/50 sm:block">
             Buenos Aires, Argentina
           </span>
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new Event(OPEN_CONTACT_CHAT_EVENT))}
+          <a
+            href={whatsappUrl("Hola! Quiero información para comprar por mayor en Mirrow.")}
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full bg-[var(--color-red)] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)] sm:px-5 sm:text-sm"
           >
             Contacto mayorista
-          </button>
+          </a>
         </div>
       </div>
     </header>

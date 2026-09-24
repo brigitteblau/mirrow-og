@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const DESTINOS = [
   { href: "/productos", label: "Catálogo mayorista", desc: "Buzos, remeras, chombas, sweaters, jeans y más" },
-  { href: "/blog", label: "Blog mayorista", desc: "Guías para comercios y revendedores" },
+  { href: "/blog", label: "Blog mayorista", desc: "Guías para locales y multimarcas" },
   { href: "/preguntas-frecuentes", label: "Preguntas frecuentes", desc: "Compra mínima, pagos, envíos y talles" },
   { href: "/envios/buenos-aires", label: "Envíos por provincia", desc: "Despachamos a comercios de todo el país" },
 ];

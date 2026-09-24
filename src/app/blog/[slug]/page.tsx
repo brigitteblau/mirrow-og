@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${post.titulo} | Mirrow`;
   const description =
     post.resumen ||
-    `${post.titulo}. Nota del blog mayorista de Mirrow para comercios y revendedores de indumentaria.`;
+    `${post.titulo}. Nota del blog mayorista de Mirrow para locales y multimarcas de indumentaria.`;
   const url = `${BASE_URL}/blog/${post.slug}`;
   const ogImage = post.portada?.src;
 

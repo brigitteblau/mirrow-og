@@ -3,7 +3,7 @@ import { preconnect, prefetchDNS } from "react-dom";
 import { Anybody, Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
-import { ContactChat } from "@/components/ContactChat";
+import { WhatsappButton } from "@/components/WhatsappButton";
 import { PageTransition } from "@/components/PageTransition";
 
 import "./globals.css";
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Mayorista de indumentaria masculina para comercios y revendedores. Importación y producción propia, con distribución a todo el país. Comprá ropa de hombre por mayor con más de 56 años de trayectoria.",
+    "Mayorista de indumentaria masculina para locales y multimarcas. Importación y producción propia, con distribución a todo el país. Comprá ropa de hombre por mayor con más de 56 años de trayectoria.",
 
   keywords: [
     "ropa de hombre por mayor",
@@ -40,6 +40,9 @@ export const metadata: Metadata = {
     "distribuidor de ropa hombre",
     "mayorista de ropa argentina",
     "proveedor de indumentaria",
+    "proveedor de ropa para multimarcas",
+    "ropa de hombre por mayor para locales",
+    "uniformes para empresas por mayor",
   ],
 
   alternates: {
@@ -64,7 +67,7 @@ export const metadata: Metadata = {
     siteName: "Mirrow",
     title: "Mirrow Mayorista | Indumentaria masculina desde 1970",
     description:
-      "Ropa de hombre por mayor para comercios y revendedores. Importación, producción y distribución en toda Argentina.",
+      "Ropa de hombre por mayor para locales y multimarcas. Importación, producción y distribución en toda Argentina.",
     images: [
       {
         url: "/images/fabrica-fachada.jpg",
@@ -79,7 +82,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mirrow Mayorista | Indumentaria masculina",
     description:
-      "Venta mayorista para comercios y revendedores de todo el país.",
+      "Venta mayorista para locales y multimarcas de todo el país.",
     images: ["/images/fabrica-fachada.jpg"],
   },
 };
@@ -99,7 +102,7 @@ const jsonLd = {
       url: siteUrl,
       logo: `${siteUrl}/images/mirrow-icon.svg`,
       image: `${siteUrl}/images/fabrica-fachada.jpg`,
-      telephone: "+5491160192099",
+      telephone: "+5491137743741",
       email: "ventas@grupomirrow.com",
       priceRange: "$$",
       currenciesAccepted: "ARS",
@@ -118,7 +121,7 @@ const jsonLd = {
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "sales",
-        telephone: "+5491160192099",
+        telephone: "+5491137743741",
         email: "ventas@grupomirrow.com",
         availableLanguage: "Spanish",
         areaServed: "AR",
@@ -134,7 +137,7 @@ const jsonLd = {
       name: "Mirrow",
       parentOrganization: { "@id": `${siteUrl}/#organization` },
       image: `${siteUrl}/images/fabrica-fachada.jpg`,
-      telephone: "+5491160192099",
+      telephone: "+5491137743741",
       priceRange: "$$",
       address: {
         "@type": "PostalAddress",
@@ -150,7 +153,7 @@ const jsonLd = {
       name: "Mirrow",
       parentOrganization: { "@id": `${siteUrl}/#organization` },
       image: `${siteUrl}/images/fabrica-fachada.jpg`,
-      telephone: "+5491160192099",
+      telephone: "+5491137743741",
       priceRange: "$$",
       address: {
         "@type": "PostalAddress",
@@ -199,7 +202,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <PageTransition>{children}</PageTransition>
 
-        <ContactChat />
+        <WhatsappButton />
       </body>
 
       <GoogleAnalytics gaId="G-EDMW6GN7HJ" />

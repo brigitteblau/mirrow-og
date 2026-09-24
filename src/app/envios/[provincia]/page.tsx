@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!provincia) return {};
 
   const title = `Ropa de Hombre por Mayor en ${provincia.nombre} | Mirrow Mayorista`;
-  const description = `Comprá ropa de hombre por mayor en ${provincia.nombre}: Mirrow envía indumentaria masculina mayorista a comercios y revendedores con importación, producción propia y 56 años de trayectoria.`;
+  const description = `Comprá ropa de hombre por mayor en ${provincia.nombre}: Mirrow envía indumentaria masculina mayorista a locales y multimarcas con importación, producción propia y 56 años de trayectoria.`;
   const url = `${BASE_URL}/envios/${provincia.slug}`;
 
   return {
@@ -130,7 +130,7 @@ export default async function ProvinciaPage({ params }: Props) {
       name: `${provincia.nombre}, Argentina`,
     },
     url,
-    description: `Mirrow distribuye ropa de hombre por mayor a comercios y revendedores de ${provincia.nombre}.`,
+    description: `Mirrow distribuye ropa de hombre por mayor a locales y multimarcas de ${provincia.nombre}.`,
   };
 
   return (

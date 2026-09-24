@@ -17,7 +17,7 @@ export const PREGUNTAS: Pregunta[] = [
   {
     pregunta: "¿Le venden a consumidor final o solo a comercios?",
     respuesta:
-      "Trabajamos con comercios y marcas al por mayor. Para consumidor final tenemos nuestra tienda online: www.tiendamirrow.com.",
+      "Trabajamos al por mayor con locales, multimarcas y casas de ropa. Para consumidor final tenemos nuestra tienda online: www.tiendamirrow.com.",
   },
   {
     pregunta: "¿Qué medios de pago aceptan?",
@@ -38,11 +38,6 @@ export const PREGUNTAS: Pregunta[] = [
     pregunta: "¿Cómo son los talles y las curvas?",
     respuesta:
       "Cada producto tiene su curva de talles definida. Al planificar la compra te asesoramos sobre la curva más conveniente para esa prenda.",
-  },
-  {
-    pregunta: "¿Puedo pedir prendas con mi propia marca?",
-    respuesta:
-      "Sí. Podés desarrollar un producto propio o personalizar uno ya disponible. Tenemos servicio de etiquetado, estampado, bordado, planchado y embolsado. Consultanos por WhatsApp por telas, tiempos y mínimos de producción.",
   },
   {
     pregunta: "Necesito uniformes para mi empresa o institución",

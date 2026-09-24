@@ -7,6 +7,7 @@ import { Reveal } from "@/components/Reveal";
 import { ModeloGallery } from "@/components/ModeloGallery";
 import { getCatalogo, getCategoria, getPortada, contarFotos } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { mailtoUrl } from "@/lib/email";
 
 const BASE_URL = "https://www.grupomirrow.com.ar";
 
@@ -27,8 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const nombreLower = categoria.nombre.toLowerCase();
   const title = `${categoria.nombre} por Mayor | Mirrow Indumentaria Mayorista`;
   const description = categoria.descripcion
-    ? `${categoria.descripcion} Comprá ${nombreLower} por mayor en Mirrow, con envíos a comercios y revendedores de todo el país.`
-    : `Comprá ${nombreLower} por mayor en Mirrow: producción propia e importación, variedad de talles y colores, con envíos a comercios y revendedores de todo el país.`;
+    ? `${categoria.descripcion} Comprá ${nombreLower} por mayor en Mirrow, con envíos a locales y multimarcas de todo el país.`
+    : `Comprá ${nombreLower} por mayor en Mirrow: producción propia e importación, variedad de talles y colores, con envíos a locales y multimarcas de todo el país.`;
   const url = `${BASE_URL}/productos/${categoria.slug}`;
   const portada = getPortada(categoria);
   const ogImage = portada?.src;
@@ -197,21 +198,6 @@ export default async function CategoriaPage({ params }: Props) {
                     {item.fotos.length > 1 && (
                       <p className="mt-4 text-sm text-black/50">Disponible en {item.fotos.length} colores.</p>
                     )}
-                    <p className="mt-4 text-sm text-black/60">
-                      ¿Tenés una marca o un comercio? Lo fabricamos con tu etiqueta, estampado o
-                      diseño desde{" "}
-                      <span className="font-semibold text-[var(--color-ink)]">50 prendas</span>.{" "}
-                      <a
-                        href={whatsappUrl(
-                          `Hola! Tengo una marca/comercio y quiero producir ${item.nombre ? `el modelo ${item.nombre} de ` : ""}${categoria.nombre} con mi marca (mínimo 50 prendas).`
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold text-[var(--color-red)] underline underline-offset-2 transition-colors hover:text-[var(--color-red-dark)]"
-                      >
-                        Pedí tu cotización
-                      </a>
-                    </p>
                   </div>
                 </Reveal>
               ))}
@@ -225,14 +211,22 @@ export default async function CategoriaPage({ params }: Props) {
               ¿Te interesa nuestra línea de {categoria.nombre.toLowerCase()}? Escribinos y te
               contamos telas, talles y precios mayoristas.
             </p>
-            <a
-              href={whatsappUrl(`Hola! Me interesa la línea de ${categoria.nombre} de Mirrow, ¿me pasás más información?`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
-            >
-              Escribinos por WhatsApp
-            </a>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href={whatsappUrl(`Hola! Me interesa la línea de ${categoria.nombre} de Mirrow, ¿me pasás más información?`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
+              >
+                Escribinos por WhatsApp
+              </a>
+              <a
+                href={mailtoUrl("Consulta mayorista")}
+                className="inline-block rounded-full border border-white/60 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                Escribinos por mail
+              </a>
+            </div>
           </Reveal>
         </section>
 

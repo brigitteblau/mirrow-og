@@ -12,7 +12,7 @@ export const revalidate = 300;
 
 const title = "Blog Mayorista | Mirrow Indumentaria por Mayor";
 const description =
-  "Notas y guías para comercios y revendedores de indumentaria: cómo comprar ropa por mayor, talles y curvas, envíos, temporadas y producción con marca propia.";
+  "Notas y guías para locales y multimarcas de indumentaria: cómo comprar ropa por mayor, talles y curvas, envíos, temporadas y uniformes para empresas.";
 
 export const metadata: Metadata = {
   title,
@@ -99,8 +99,8 @@ export default async function BlogIndexPage() {
                   Notas próximamente
                 </p>
                 <p className="mt-3 text-sm text-black/50">
-                  Estamos preparando contenido para comercios y revendedores. Mientras tanto,
-                  escribinos por WhatsApp y te asesoramos con tu primer pedido.
+                  Estamos preparando contenido para locales y multimarcas. Mientras tanto,
+                  escribinos por WhatsApp o mail y te pasamos la lista de precios.
                 </p>
               </div>
             ) : (

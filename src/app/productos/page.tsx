@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import { getCatalogo, getPortada, contarFotos } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { mailtoUrl } from "@/lib/email";
 
 const BASE_URL = "https://www.grupomirrow.com.ar";
 
@@ -14,7 +15,7 @@ export const revalidate = 300;
 const title =
   "Catálogo de Ropa de Hombre por Mayor | Buzos, Remeras, Jeans y más | Mirrow";
 const description =
-  "Catálogo mayorista de ropa de hombre de Mirrow: buzos, remeras, chombas, sweaters, camperas, jeans y pantalones para comercios y revendedores. Producción propia e importación, con envíos a todo el país.";
+  "Catálogo mayorista de ropa de hombre de Mirrow: buzos, remeras, chombas, sweaters, camperas, jeans y pantalones para locales y multimarcas. Producción propia e importación, con envíos a todo el país.";
 
 export const metadata: Metadata = {
   title,
@@ -112,18 +113,15 @@ export default async function ProductosIndexPage() {
               <p>
                 En Mirrow somos <strong>mayoristas de indumentaria masculina</strong> desde
                 1970. Producimos e importamos <strong>ropa de hombre por mayor</strong> para
-                comercios, marcas y revendedores de toda la Argentina, con curva de talles
-                completa, reposición por temporada y la opción de fabricar cada prenda con tu
-                propia marca.
+                locales, multimarcas y casas de ropa de toda la Argentina, con curva de talles
+                completa y reposición por temporada.
               </p>
               <p>
-                Recorré las categorías del catálogo y escribinos por WhatsApp para recibir la
-                lista de precios mayoristas y la compra mínima vigente de cada artículo.
+                Recorré las categorías del catálogo y escribinos por WhatsApp o mail para recibir
+                la lista de precios mayoristas y la compra mínima vigente de cada artículo.
               </p>
               <p>
-                ¿Es tu primera compra por mayor? En el{" "}
-                <Link href="/blog">blog mayorista</Link> explicamos cómo armar el pedido, las
-                curvas de talles y las modalidades de compra, y en{" "}
+                En{" "}
                 <Link href="/preguntas-frecuentes">preguntas frecuentes</Link> respondemos las
                 dudas más comunes sobre pagos y envíos.
               </p>
@@ -215,16 +213,24 @@ export default async function ProductosIndexPage() {
             <p className="text-xl font-medium leading-relaxed text-white sm:text-2xl">
               Pedí la lista de precios mayoristas y armá tu primer pedido con nosotros.
             </p>
-            <a
-              href={whatsappUrl(
-                "Hola! Quiero la lista de precios mayoristas y el catálogo completo de Mirrow."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
-            >
-              Escribinos por WhatsApp
-            </a>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href={whatsappUrl(
+                  "Hola! Quiero la lista de precios mayoristas y el catálogo completo de Mirrow."
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
+              >
+                Escribinos por WhatsApp
+              </a>
+              <a
+                href={mailtoUrl("Lista de precios mayoristas")}
+                className="inline-block rounded-full border border-white/60 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                Escribinos por mail
+              </a>
+            </div>
           </Reveal>
         </section>
       </main>

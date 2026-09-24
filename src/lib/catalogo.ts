@@ -70,20 +70,20 @@ export function slugify(input: string): string {
  * Priorizamos búsquedas como:
  * - ropa por mayor
  * - indumentaria mayorista
- * - ropa para revendedores
+ * - ropa para multimarcas
  * - proveedor de ropa
  * - ropa para locales
  */
 const ALT_VARIATIONS = [
   (product: string) => `${product} por mayor | Mirrow`,
   (product: string) => `${product} mayorista para locales de ropa`,
-  (product: string) => `${product} para revendedores | Mirrow mayorista`,
+  (product: string) => `${product} para multimarcas | Mirrow mayorista`,
   (product: string) => `${product} venta por mayor`,
   (product: string) => `${product} para comercios de indumentaria`,
   (product: string) => `${product} proveedor mayorista | Mirrow`,
-  (product: string) => `${product} ropa por mayor para revender`,
+  (product: string) => `${product} ropa por mayor para casas de ropa`,
   (product: string) => `${product} indumentaria mayorista`,
-  (product: string) => `${product} para locales y revendedores`,
+  (product: string) => `${product} para locales y multimarcas`,
   (product: string) => `${product} distribuidor mayorista de indumentaria`,
   (product: string) => `${product} colección mayorista Mirrow`,
   (product: string) => `${product} compra mayorista para tu local`,

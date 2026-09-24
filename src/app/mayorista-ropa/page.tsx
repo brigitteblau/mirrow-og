@@ -8,6 +8,7 @@ import { Faq } from "@/components/Faq";
 import { getCatalogo, getPortada, type Foto } from "@/lib/catalogo";
 import { PREGUNTAS } from "@/lib/preguntas";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { mailtoUrl } from "@/lib/email";
 
 const BASE_URL = "https://www.grupomirrow.com.ar";
 const URL = `${BASE_URL}/mayorista-ropa`;
@@ -49,11 +50,6 @@ const VENTAJAS = [
     titulo: "Curvas de talles completas",
     texto:
       "Cada prenda tiene su curva definida y te asesoramos sobre la más conveniente según tu público y punto de venta.",
-  },
-  {
-    titulo: "Marca propia y personalización",
-    texto:
-      "Podés desarrollar un producto con tu propia marca o personalizar uno existente: etiquetado, estampado, bordado y embolsado.",
   },
 ];
 
@@ -178,10 +174,9 @@ export default async function MayoristaRopaPage() {
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
                 Ser mayorista de ropa significa comprar indumentaria en volumen y a
-                precios escalonados para revenderla en tu comercio, feria o tienda
-                online. Mirrow importa, produce y distribuye ropa de hombre al por
-                mayor desde 1970, con stock permanente y envíos a comercios de toda
-                Argentina.
+                precios escalonados para vender en tu local o multimarca. Mirrow
+                importa, produce y distribuye ropa de hombre al por mayor desde 1970,
+                con stock permanente y envíos a comercios de toda Argentina.
               </p>
               <a
                 href={whatsappUrl("Hola! Quiero información para comprar ropa al por mayor en Mirrow.")}
@@ -227,7 +222,7 @@ export default async function MayoristaRopaPage() {
                 Modalidad
               </p>
               <h2 className="font-display mt-3 text-2xl font-extrabold uppercase tracking-tight text-[var(--color-ink)] sm:text-3xl">
-                Cómo hacer tu primer pedido mayorista
+                Cómo hacer tu pedido mayorista
               </h2>
             </Reveal>
             <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -281,22 +276,30 @@ export default async function MayoristaRopaPage() {
         <Faq
           preguntas={PREGUNTAS_MAYORISTA}
           heading="Preguntas sobre la compra mayorista"
-          bajada="Lo que más nos preguntan los comercios antes de su primer pedido."
+          bajada="Lo que más nos preguntan los comercios antes de hacer su pedido."
         />
 
         <section className="bg-[var(--color-red)] py-14 text-center sm:py-16">
           <Reveal className="mx-auto max-w-2xl px-6 lg:px-8">
             <p className="text-xl font-medium leading-relaxed text-white sm:text-2xl">
-              ¿Listo para hacer tu primer pedido mayorista?
+              ¿Querés sumar Mirrow a tu local?
             </p>
-            <a
-              href={whatsappUrl("Hola! Quiero información para comprar ropa al por mayor en Mirrow.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
-            >
-              Escribinos por WhatsApp
-            </a>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href={whatsappUrl("Hola! Quiero información para comprar ropa al por mayor en Mirrow.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
+              >
+                Escribinos por WhatsApp
+              </a>
+              <a
+                href={mailtoUrl("Consulta mayorista")}
+                className="inline-block rounded-full border border-white/60 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                Escribinos por mail
+              </a>
+            </div>
           </Reveal>
         </section>
       </main>
