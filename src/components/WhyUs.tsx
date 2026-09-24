@@ -6,7 +6,7 @@ const SERVICES = [
   {
     title: "Venta mayorista",
     description:
-      "Artículos con rotación y stock permanente. Elegís qué líneas trabajar.",
+      "Desarrollamos productos nuevos todas las temporadas, con stock permanente. Elegís qué líneas trabajar.",
     image: "/images/taller-mesas.jpg",
     cta: "Pedir catálogo",
     href: whatsappUrl("Hola! Quiero pedir el catálogo mayorista de Mirrow."),

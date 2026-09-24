@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import { ModeloGallery } from "@/components/ModeloGallery";
+import { CategoriaCard } from "@/components/CategoriaCard";
 import { getCatalogo, getCategoria, getPortada, contarFotos } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { mailtoUrl } from "@/lib/email";
@@ -236,18 +237,11 @@ export default async function CategoriaPage({ params }: Props) {
               <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight text-[var(--color-ink)]">
                 Otras categorías
               </h2>
-              <ul className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
                 {otras.map((c) => (
-                  <li key={c.slug}>
-                    <Link
-                      href={`/productos/${c.slug}`}
-                      className="rounded-full border border-black/15 bg-white px-4 py-2 text-sm text-[var(--color-ink)]/70 transition-colors hover:border-[var(--color-red)] hover:text-[var(--color-red)]"
-                    >
-                      {c.nombre}
-                    </Link>
-                  </li>
+                  <CategoriaCard key={c.slug} slug={c.slug} nombre={c.nombre} foto={getPortada(c)} />
                 ))}
-              </ul>
+              </div>
             </div>
           </section>
         )}
