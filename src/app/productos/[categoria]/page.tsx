@@ -198,7 +198,8 @@ export default async function CategoriaPage({ params }: Props) {
                       <p className="mt-4 text-sm text-black/50">Disponible en {item.fotos.length} colores.</p>
                     )}
                     <p className="mt-4 text-sm text-black/60">
-                      ¿Tenés una marca o un comercio? Lo fabricamos con tu etiqueta desde{" "}
+                      ¿Tenés una marca o un comercio? Lo fabricamos con tu etiqueta, estampado o
+                      diseño desde{" "}
                       <span className="font-semibold text-[var(--color-ink)]">50 prendas</span>.{" "}
                       <a
                         href={whatsappUrl(
