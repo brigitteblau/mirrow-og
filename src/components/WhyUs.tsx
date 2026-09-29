@@ -9,7 +9,7 @@ const SERVICES = [
       "Desarrollamos productos nuevos todas las temporadas, con stock permanente. Elegís qué líneas trabajar.",
     image: "/images/taller-mesas.jpg",
     cta: "Pedir catálogo",
-    href: whatsappUrl("Hola! Quiero pedir el catálogo mayorista de Mirrow."),
+    href: whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Estoy buscando proveedor mayorista y me gustaría recibir el catálogo y la lista de precios de Mirrow. ¡Gracias!"),
     external: true,
   },
   {
@@ -27,7 +27,7 @@ const SERVICES = [
       "Sumate a la red de +100 comercios y escalá hasta manejar una línea completa de indumentaria.",
     image: "/images/deposito-rollos.png",
     cta: "Ser distribuidor",
-    href: whatsappUrl("Hola! Quiero sumarme como distribuidor de Mirrow."),
+    href: whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Estoy interesado/a en sumarme como distribuidor de Mirrow. ¿Me cuentan las condiciones?"),
     external: true,
   },
 ];

@@ -54,7 +54,7 @@ export function Header() {
             Buenos Aires, Argentina
           </span>
           <a
-            href={whatsappUrl("Hola! Quiero información para comprar por mayor en Mirrow.")}
+            href={whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Estoy buscando proveedor mayorista y me gustaría recibir el catálogo y la lista de precios de Mirrow. ¡Gracias!")}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full bg-[var(--color-red)] px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)] sm:px-5 sm:text-sm"

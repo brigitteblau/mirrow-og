@@ -143,7 +143,7 @@ export function HowToBuy() {
 
           <div className="mt-14 flex flex-wrap gap-3">
             <a
-              href={whatsappUrl("Hola! Quiero empezar a comprar mayorista en Mirrow.")}
+              href={whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Quiero empezar a comprar por mayor en Mirrow. ¿Me cuentan cómo es el proceso y me pasan el catálogo?")}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block rounded-full bg-[var(--color-red)] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"

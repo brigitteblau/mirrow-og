@@ -223,7 +223,7 @@ export default async function BlogPostPage({ params }: Props) {
               </p>
               <a
                 href={whatsappUrl(
-                  `Hola! Leí la nota "${post.titulo}" en el blog de Mirrow y quiero información mayorista.`
+                  `Hola! Mi nombre es ... y tengo un negocio de ropa en ... Leí la nota "${post.titulo}" en el blog de Mirrow y estoy buscando proveedor mayorista. ¿Me pasan el catálogo y la lista de precios?`
                 )}
                 target="_blank"
                 rel="noopener noreferrer"

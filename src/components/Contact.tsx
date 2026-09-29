@@ -18,7 +18,7 @@ export function Contact() {
           </p>
 
           <a
-            href={whatsappUrl("Hola! Quiero hacer un pedido mayorista a Mirrow.")}
+            href={whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Quiero hacer un pedido mayorista a Mirrow. Estoy buscando ...")}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-3 rounded-full bg-[var(--color-red)] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"

@@ -4,7 +4,7 @@ import { whatsappUrl } from "@/lib/whatsapp";
 export function WhatsappButton() {
   return (
     <a
-      href={whatsappUrl("Hola! Quiero información para comprar por mayor en Mirrow.")}
+      href={whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Estoy buscando proveedor mayorista y me gustaría recibir el catálogo y la lista de precios de Mirrow. ¡Gracias!")}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escribinos por WhatsApp"
