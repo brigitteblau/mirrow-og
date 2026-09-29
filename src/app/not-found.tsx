@@ -34,7 +34,7 @@ export default function NotFound() {
               secciones o escribinos y te ayudamos.
             </p>
             <a
-              href={whatsappUrl("Hola! Mi nombre es ... Estaba buscando ... en la web de Mirrow y no lo encontré. ¿Me pueden ayudar?")}
+              href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-8 inline-block rounded-full bg-[var(--color-red)] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"

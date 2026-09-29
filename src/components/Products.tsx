@@ -34,9 +34,7 @@ export async function Products() {
               Ver catálogo completo
             </Link>
             <a
-              href={whatsappUrl(
-                "Hola! Quiero la lista de precios mayoristas de Mirrow."
-              )}
+              href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full bg-[var(--color-red)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"

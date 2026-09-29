@@ -215,9 +215,7 @@ export default async function ProductosIndexPage() {
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <a
-                href={whatsappUrl(
-                  "Hola! Quiero la lista de precios mayoristas y el catálogo completo de Mirrow."
-                )}
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"

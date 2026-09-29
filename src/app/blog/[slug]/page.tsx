@@ -222,9 +222,7 @@ export default async function BlogPostPage({ params }: Props) {
                 lista de precios mayoristas.
               </p>
               <a
-                href={whatsappUrl(
-                  `Hola! Mi nombre es ... y tengo un negocio de ropa en ... Leí la nota "${post.titulo}" en el blog de Mirrow y estoy buscando proveedor mayorista. ¿Me pasan el catálogo y la lista de precios?`
-                )}
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-6 inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"

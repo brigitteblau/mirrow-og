@@ -77,7 +77,7 @@ export default function PreguntasFrecuentesPage() {
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <a
-                href={whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Tengo una consulta sobre la venta mayorista de Mirrow: ...")}
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"

@@ -143,7 +143,7 @@ export default async function MayoristaRopaPage() {
                 con stock permanente y envíos a comercios de toda Argentina.
               </p>
               <a
-                href={whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Estoy buscando ropa al por mayor y me gustaría recibir el catálogo y la lista de precios de Mirrow. ¡Gracias!")}
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 inline-block rounded-full bg-[var(--color-red)] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"
@@ -250,7 +250,7 @@ export default async function MayoristaRopaPage() {
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <a
-                href={whatsappUrl("Hola! Mi nombre es ... y tengo un negocio de ropa en ... Estoy buscando ropa al por mayor y me gustaría recibir el catálogo y la lista de precios de Mirrow. ¡Gracias!")}
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"

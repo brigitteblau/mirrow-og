@@ -133,7 +133,7 @@ export default async function ProvinciaPage({ params }: Props) {
                 contenedores completos y documentación técnica en cada envío.
               </p>
               <a
-                href={whatsappUrl(`Hola! Mi nombre es ... y tengo un negocio de ropa en ${provincia.nombre}. Estoy buscando proveedor mayorista y me gustaría recibir el catálogo y la lista de precios de Mirrow, con info de envío a mi zona. ¡Gracias!`)}
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 inline-block rounded-full bg-[var(--color-red)] px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)]"
@@ -221,7 +221,7 @@ export default async function ProvinciaPage({ params }: Props) {
               ¿Tenés un comercio en {provincia.nombre}? Pedí tu catálogo mayorista hoy mismo.
             </p>
             <a
-              href={whatsappUrl(`Hola! Mi nombre es ... y tengo un negocio de ropa en ${provincia.nombre}. Estoy buscando proveedor mayorista y me gustaría recibir el catálogo y la lista de precios de Mirrow, con info de envío a mi zona. ¡Gracias!`)}
+              href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"

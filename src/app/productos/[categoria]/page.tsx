@@ -214,7 +214,7 @@ export default async function CategoriaPage({ params }: Props) {
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <a
-                href={whatsappUrl(`Hola! Me interesa la línea de ${categoria.nombre} de Mirrow, ¿me pasás más información?`)}
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[var(--color-red)] transition-colors hover:bg-white/90"
