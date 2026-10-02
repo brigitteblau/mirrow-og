@@ -10,10 +10,12 @@ const initialState: NewsletterState = { status: "idle" };
 type Props = {
   origen: "popup" | "footer";
   variant?: "light" | "dark";
+  /** "grid": comercio y mail lado a lado desde sm, botón abajo a todo el ancho. */
+  layout?: "stack" | "grid";
   onSuscripto?: () => void;
 };
 
-export function NewsletterForm({ origen, variant = "light", onSuscripto }: Props) {
+export function NewsletterForm({ origen, variant = "light", layout = "stack", onSuscripto }: Props) {
   const [state, formAction, pending] = useActionState(suscribirNewsletter, initialState);
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export function NewsletterForm({ origen, variant = "light", onSuscripto }: Props
   }, [state.status, onSuscripto]);
 
   const dark = variant === "dark";
+  const grid = layout === "grid";
 
   if (state.status === "ok") {
     return (
@@ -46,7 +49,10 @@ export function NewsletterForm({ origen, variant = "light", onSuscripto }: Props
   }`;
 
   return (
-    <form action={formAction} className="flex flex-col gap-3">
+    <form
+      action={formAction}
+      className={grid ? "grid gap-3 sm:grid-cols-2" : "flex flex-col gap-3"}
+    >
       <input type="hidden" name="origen" value={origen} />
       <input
         type="text"
@@ -87,13 +93,15 @@ export function NewsletterForm({ origen, variant = "light", onSuscripto }: Props
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full bg-[var(--color-red)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)] disabled:opacity-60"
+        className={`rounded-full bg-[var(--color-red)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-red-dark)] disabled:opacity-60 ${
+          grid ? "sm:col-span-2" : ""
+        }`}
       >
         {pending ? "Anotando..." : "Quiero recibir novedades"}
       </button>
 
       {state.status === "error" && (
-        <p role="alert" className={`text-sm ${dark ? "text-red-300" : "text-[var(--color-red-dark)]"}`}>
+        <p role="alert" className={`text-sm ${grid ? "sm:col-span-2" : ""} ${dark ? "text-red-300" : "text-[var(--color-red-dark)]"}`}>
           {state.mensaje}
         </p>
       )}

@@ -28,18 +28,47 @@ export async function Footer() {
   return (
     <footer className="bg-[var(--color-ink)] py-16 text-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-14 grid grid-cols-1 items-center gap-8 border-b border-white/10 pb-14 lg:grid-cols-2">
-          <div>
-            <h3 className="font-display text-2xl font-extrabold uppercase tracking-tight">
-              Newsletter mayorista
-            </h3>
-            <p className="mt-3 max-w-md text-sm text-white/60">
-              Ingresos de temporada, reposiciones y novedades para tu comercio, directo en tu
-              mail.
-            </p>
+        <section
+          aria-labelledby="newsletter-footer-titulo"
+          className="relative mb-16 overflow-hidden rounded-3xl bg-white px-6 py-10 text-[var(--color-ink)] sm:px-10 lg:px-14 lg:py-14"
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[var(--color-blue)]/25 blur-3xl"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-y-0 left-0 w-1.5 bg-[var(--color-red)]"
+          />
+          <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-red)]">
+                Newsletter mayorista
+              </p>
+              <h3
+                id="newsletter-footer-titulo"
+                className="mt-3 font-display text-3xl font-extrabold uppercase leading-tight tracking-tight sm:text-4xl"
+              >
+                Enterate primero de cada ingreso
+              </h3>
+              <p className="mt-4 max-w-md text-sm text-black/60">
+                Ingresos de temporada, reposiciones y novedades para tu comercio, directo en tu
+                mail.
+              </p>
+              <ul className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-black/70">
+                {["Ingresos de temporada", "Reposiciones", "Sin spam"].map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-full bg-[var(--color-gray-elegance)] px-3 py-1.5"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <NewsletterForm origen="footer" variant="light" layout="grid" />
           </div>
-          <NewsletterForm origen="footer" variant="dark" />
-        </div>
+        </section>
 
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
           <div>
