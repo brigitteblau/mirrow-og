@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { NewsletterForm } from "./NewsletterForm";
 import { PROVINCIAS } from "@/lib/provincias";
 import { getCatalogo } from "@/lib/catalogo";
 
@@ -27,6 +28,19 @@ export async function Footer() {
   return (
     <footer className="bg-[var(--color-ink)] py-16 text-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mb-14 grid grid-cols-1 items-center gap-8 border-b border-white/10 pb-14 lg:grid-cols-2">
+          <div>
+            <h3 className="font-display text-2xl font-extrabold uppercase tracking-tight">
+              Newsletter mayorista
+            </h3>
+            <p className="mt-3 max-w-md text-sm text-white/60">
+              Ingresos de temporada, reposiciones y novedades para tu comercio, directo en tu
+              mail.
+            </p>
+          </div>
+          <NewsletterForm origen="footer" variant="dark" />
+        </div>
+
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
           <div>
             <Logo variant="light" />

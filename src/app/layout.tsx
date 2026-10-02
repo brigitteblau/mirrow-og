@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { WhatsappButton } from "@/components/WhatsappButton";
 import { PageTransition } from "@/components/PageTransition";
+import { SitePopups } from "@/components/SitePopups";
 
 import "./globals.css";
 
@@ -203,6 +204,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <PageTransition>{children}</PageTransition>
 
         <WhatsappButton />
+        <SitePopups />
       </body>
 
       <GoogleAnalytics gaId="G-EDMW6GN7HJ" />
