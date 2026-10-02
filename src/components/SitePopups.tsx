@@ -97,7 +97,7 @@ export function SitePopups() {
             ¡Hola! 
           </h2>
           <p className="mx-auto mt-3 max-w-xs text-[15px] leading-relaxed text-black/60">
-            Hace 50 años dedicandonos a la ropa.
+            Hace 56 años dedicandonos a la ropa.
             Minimo: 50 unidades
           </p>
 
