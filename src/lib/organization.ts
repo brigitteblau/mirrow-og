@@ -3,6 +3,9 @@ import { CONTACT_EMAIL } from "./email";
 export const SITE_URL = "https://www.grupomirrow.com.ar";
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 
+export const INSTAGRAM_URL = "https://www.instagram.com/mirrow.oficial/";
+export const TIENDA_MINORISTA_URL = "https://www.tiendamirrow.com";
+
 export const ORGANIZATION_DESCRIPTION =
   "Importador, productor y distribuidor mayorista de indumentaria masculina en Argentina, con más de 56 años de trayectoria familiar.";
 
@@ -19,6 +22,7 @@ export const organizationJsonLd = {
   url: SITE_URL,
   description: ORGANIZATION_DESCRIPTION,
   logo: `${SITE_URL}/images/mirrow-icon.svg`,
+  sameAs: [INSTAGRAM_URL, TIENDA_MINORISTA_URL],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Ciudad Autónoma de Buenos Aires",

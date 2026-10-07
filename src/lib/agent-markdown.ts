@@ -12,7 +12,7 @@ import { PREGUNTAS } from "./preguntas";
 import { PROVINCIAS } from "./provincias";
 import { CONTACT_EMAIL } from "./email";
 import { whatsappUrl } from "./whatsapp";
-import { SITE_URL } from "./organization";
+import { INSTAGRAM_URL, SITE_URL } from "./organization";
 
 export { SITE_URL };
 
@@ -200,6 +200,7 @@ function contacto(): string {
     "- Mirrow Castelli: Castelli 334, Once, Ciudad Autónoma de Buenos Aires, Argentina",
     "- Showroom Sarmiento: Sarmiento 2790, Once, Ciudad Autónoma de Buenos Aires, Argentina",
     "- Venta a consumidor final: [www.tiendamirrow.com](https://www.tiendamirrow.com)",
+    `- Instagram: [@mirrow.oficial](${INSTAGRAM_URL})`,
   ].join("\n");
 }
 

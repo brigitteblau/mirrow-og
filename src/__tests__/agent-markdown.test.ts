@@ -65,6 +65,7 @@ describe("renderMarkdown", () => {
     expect(body.startsWith("# Mirrow")).toBe(true);
     expect(body).toContain(`[Buzos](${SITE_URL}/productos/buzos)`);
     expect(body).toContain("ventas@grupomirrow.com");
+    expect(body).toContain("[@mirrow.oficial](https://www.instagram.com/mirrow.oficial/)");
     expect(body).not.toMatch(/<[a-z]+[\s>]/i);
   });
 

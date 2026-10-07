@@ -8,6 +8,10 @@ describe("organizationJsonLd", () => {
     expect(organizationJsonLd.description.length).toBeGreaterThan(20);
     expect(organizationJsonLd.logo).toMatch(/^https:\/\/.+\.svg$/);
     expect(organizationJsonLd.address.addressCountry).toBe("AR");
+    expect(organizationJsonLd.sameAs).toEqual([
+      "https://www.instagram.com/mirrow.oficial/",
+      "https://www.tiendamirrow.com",
+    ]);
     expect(organizationJsonLd.contactPoint.email).toBe("ventas@grupomirrow.com");
   });
 });
