@@ -16,6 +16,16 @@ const nextConfig: NextConfig = {
         ]
       : [],
   },
+  // Las páginas cambian de representación según `Accept` (HTML o Markdown,
+  // ver src/proxy.ts), así que los caches tienen que distinguirlas.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [{ key: "Vary", value: "Accept" }],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

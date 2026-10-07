@@ -9,6 +9,7 @@ import { getCatalogo, getPortada } from "@/lib/catalogo";
 import { PREGUNTAS } from "@/lib/preguntas";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { mailtoUrl } from "@/lib/email";
+import { organizationJsonLd } from "@/lib/organization";
 
 const BASE_URL = "https://www.grupomirrow.com.ar";
 const URL = `${BASE_URL}/mayorista-ropa`;
@@ -105,7 +106,7 @@ export default async function MayoristaRopaPage() {
     description,
     url: URL,
     author: { "@type": "Organization", name: "Mirrow" },
-    publisher: { "@type": "Organization", name: "Mirrow", url: BASE_URL },
+    publisher: organizationJsonLd,
   };
 
   return (

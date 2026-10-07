@@ -6,6 +6,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { WhatsappButton } from "@/components/WhatsappButton";
 import { PageTransition } from "@/components/PageTransition";
 import { SitePopups } from "@/components/SitePopups";
+import { ORGANIZATION_ID, SITE_URL, organizationJsonLd } from "@/lib/organization";
 
 import "./globals.css";
 
@@ -20,7 +21,7 @@ const bodyFont = Inter({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://www.grupomirrow.com.ar";
+const siteUrl = SITE_URL;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -92,41 +93,31 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "ClothingStore",
-      "@id": `${siteUrl}/#organization`,
-      name: "Mirrow",
-      alternateName: "Grupo Mirrow",
-      legalName: "Modri S.R.L.",
-      description:
-        "Importador, productor y distribuidor mayorista de indumentaria masculina en Argentina, con más de 56 años de trayectoria familiar.",
-      foundingDate: "1970",
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
       url: siteUrl,
-      logo: `${siteUrl}/images/mirrow-icon.svg`,
+      name: "Mirrow",
+      alternateName: ["Grupo Mirrow", "Mirrow Mayorista"],
+      description: "Mirrow, mayorista de ropa de hombre en Argentina.",
+      inLanguage: "es-AR",
+      publisher: { "@id": ORGANIZATION_ID },
+    },
+    {
+      ...organizationJsonLd,
+      "@type": ["Organization", "ClothingStore"],
+      legalName: "Modri S.R.L.",
+      foundingDate: "1970",
       image: `${siteUrl}/images/fabrica-fachada.jpg`,
       telephone: "+5491137743741",
       email: "ventas@grupomirrow.com",
       priceRange: "$$",
       currenciesAccepted: "ARS",
       paymentAccepted: "Transferencia, depósito, débito, crédito, efectivo",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Ciudad Autónoma de Buenos Aires",
-        addressRegion: "CABA",
-        addressCountry: "AR",
-      },
       areaServed: {
         "@type": "Country",
         name: "Argentina",
       },
       knowsLanguage: "es-AR",
-      contactPoint: {
-        "@type": "ContactPoint",
-        contactType: "sales",
-        telephone: "+5491137743741",
-        email: "ventas@grupomirrow.com",
-        availableLanguage: "Spanish",
-        areaServed: "AR",
-      },
       department: [
         { "@id": `${siteUrl}/#tienda-castelli` },
         { "@id": `${siteUrl}/#tienda-sarmiento` },
@@ -136,7 +127,7 @@ const jsonLd = {
       "@type": "ClothingStore",
       "@id": `${siteUrl}/#tienda-castelli`,
       name: "Mirrow",
-      parentOrganization: { "@id": `${siteUrl}/#organization` },
+      parentOrganization: { "@id": ORGANIZATION_ID },
       image: `${siteUrl}/images/fabrica-fachada.jpg`,
       telephone: "+5491137743741",
       priceRange: "$$",
@@ -152,7 +143,7 @@ const jsonLd = {
       "@type": "ClothingStore",
       "@id": `${siteUrl}/#tienda-sarmiento`,
       name: "Mirrow",
-      parentOrganization: { "@id": `${siteUrl}/#organization` },
+      parentOrganization: { "@id": ORGANIZATION_ID },
       image: `${siteUrl}/images/fabrica-fachada.jpg`,
       telephone: "+5491137743741",
       priceRange: "$$",

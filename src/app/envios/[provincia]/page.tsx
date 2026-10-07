@@ -9,6 +9,7 @@ import { CategoriaCard } from "@/components/CategoriaCard";
 import { PROVINCIAS } from "@/lib/provincias";
 import { getCatalogo, getPortada } from "@/lib/catalogo";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { organizationJsonLd } from "@/lib/organization";
 
 const BASE_URL = "https://www.grupomirrow.com.ar";
 
@@ -85,11 +86,7 @@ export default async function ProvinciaPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Service",
     serviceType: "Venta mayorista de indumentaria masculina",
-    provider: {
-      "@type": "Organization",
-      name: "Mirrow",
-      url: BASE_URL,
-    },
+    provider: organizationJsonLd,
     areaServed: {
       "@type": "AdministrativeArea",
       name: `${provincia.nombre}, Argentina`,

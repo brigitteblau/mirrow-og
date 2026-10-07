@@ -1,8 +1,7 @@
 import { Reveal } from "./Reveal";
 import { ReviewsCarousel } from "./ReviewsCarousel";
 import { getReviews } from "@/lib/reviews";
-
-const SITE_URL = "https://www.grupomirrow.com.ar";
+import { organizationJsonLd } from "@/lib/organization";
 
 export async function Reviews() {
   const data = await getReviews();
@@ -19,10 +18,7 @@ export async function Reviews() {
     isGoogle && data.rating
       ? {
           "@context": "https://schema.org",
-          "@type": "Organization",
-          "@id": `${SITE_URL}/#organization`,
-          name: "Mirrow",
-          url: SITE_URL,
+          ...organizationJsonLd,
           aggregateRating: {
             "@type": "AggregateRating",
             ratingValue: data.rating,

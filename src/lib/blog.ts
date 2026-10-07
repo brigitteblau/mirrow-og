@@ -40,18 +40,13 @@ async function fetchPostsFromPocketBase(): Promise<Post[]> {
 
   const url = `${POCKETBASE_URL}/api/collections/posts/records?perPage=200&sort=-publicado`;
 
-  let items: PostRecord[];
-  try {
-    const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`PocketBase respondió ${res.status} al leer "posts"`);
-    }
-    const data = (await res.json()) as PocketBaseListResponse<PostRecord>;
-    items = data.items;
-  } catch (error) {
-    console.error("No se pudo leer el blog de PocketBase:", error);
-    return [];
+  // Los errores se propagan para que unstable_cache no guarde una lista vacía
+  // por un fallo puntual; el fallback a [] está en getPosts().
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`PocketBase respondió ${res.status} al leer "posts"`);
   }
+  const { items } = (await res.json()) as PocketBaseListResponse<PostRecord>;
 
   const ahora = Date.now();
 
@@ -88,7 +83,12 @@ const getCachedPosts = unstable_cache(fetchPostsFromPocketBase, ["blog"], {
 });
 
 export async function getPosts(): Promise<Post[]> {
-  return getCachedPosts();
+  try {
+    return await getCachedPosts();
+  } catch (error) {
+    console.error("No se pudo leer el blog de PocketBase:", error);
+    return [];
+  }
 }
 
 export async function getPost(slug: string): Promise<Post | undefined> {

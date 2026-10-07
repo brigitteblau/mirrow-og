@@ -9,6 +9,7 @@ import { getPosts, getPost, formatearFecha } from "@/lib/blog";
 import { getCatalogo, getPortada } from "@/lib/catalogo";
 import { PROVINCIAS } from "@/lib/provincias";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { organizationJsonLd } from "@/lib/organization";
 
 const BASE_URL = "https://www.grupomirrow.com.ar";
 
@@ -92,11 +93,7 @@ export default async function BlogPostPage({ params }: Props) {
     datePublished: post.publicado,
     dateModified: post.publicado,
     author: { "@type": "Organization", name: post.autor },
-    publisher: {
-      "@type": "Organization",
-      name: "Mirrow",
-      url: BASE_URL,
-    },
+    publisher: organizationJsonLd,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
   };
 
